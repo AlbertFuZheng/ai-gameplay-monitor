@@ -636,8 +636,8 @@ function initChart() {
     backgroundColor: 'transparent',
     grid: { left: 60, right: 40, top: 40, bottom: 60 },
     dataZoom: [
-      { type: 'inside', xAxisIndex: 0, filterMode: 'none', zoomOnMouseWheel: true, minSpan: 30, maxSpan: 100, throttle: 400 },
-      { type: 'inside', yAxisIndex: 0, filterMode: 'none', zoomOnMouseWheel: true, minSpan: 30, maxSpan: 100, throttle: 400 }
+      { id: 'zoomX', type: 'inside', xAxisIndex: 0, filterMode: 'none', zoomOnMouseWheel: true, moveOnMouseWheel: false, moveOnMouseMove: false, zoomOnTouch: false, moveOnTouch: false, throttle: 50 },
+      { id: 'zoomY', type: 'inside', yAxisIndex: 0, filterMode: 'none', zoomOnMouseWheel: true, moveOnMouseWheel: false, moveOnMouseMove: false, zoomOnTouch: false, moveOnTouch: false, throttle: 50 }
     ],
     xAxis: {
       name: 'AI 核心程度',
@@ -708,6 +708,63 @@ function initChart() {
   chart.on('click', function(params) {
     if (params.data && params.data._product) openCommentPanel(params.data._product);
   });
+
+  // Custom pinch zoom with reduced sensitivity (1/4 of default)
+  (function() {
+    var chartDom = document.getElementById('bubbleChart');
+    var lastPinchDist = 0;
+    var ZOOM_FACTOR = 0.25; // 1/4 sensitivity
+
+    chartDom.addEventListener('touchstart', function(e) {
+      if (e.touches.length === 2) {
+        lastPinchDist = Math.hypot(
+          e.touches[0].clientX - e.touches[1].clientX,
+          e.touches[0].clientY - e.touches[1].clientY
+        );
+        // Disable ECharts built-in touch zoom
+        chart.dispatchAction({ type: 'takeGlobalCursor', key: 'dataZoomSelect', dataZoomSelectActive: false });
+      }
+    }, { passive: true });
+
+    chartDom.addEventListener('touchmove', function(e) {
+      if (e.touches.length === 2 && lastPinchDist > 0) {
+        e.preventDefault();
+        var newDist = Math.hypot(
+          e.touches[0].clientX - e.touches[1].clientX,
+          e.touches[0].clientY - e.touches[1].clientY
+        );
+        var delta = (newDist - lastPinchDist) * ZOOM_FACTOR;
+        lastPinchDist = newDist;
+
+        // Get current zoom state
+        var optZoom = chart.getOption().dataZoom;
+        var xStart = optZoom[0].start || 0, xEnd = optZoom[0].end || 100;
+        var yStart = optZoom[1].start || 0, yEnd = optZoom[1].end || 100;
+        var zoomStep = delta * 0.15; // fine-grained step
+
+        var newXStart = Math.max(0, xStart + zoomStep);
+        var newXEnd = Math.min(100, xEnd - zoomStep);
+        var newYStart = Math.max(0, yStart + zoomStep);
+        var newYEnd = Math.min(100, yEnd - zoomStep);
+
+        // Enforce minimum span
+        if (newXEnd - newXStart < 20) return;
+        if (newYEnd - newYStart < 20) return;
+
+        chart.dispatchAction({
+          type: 'dataZoom', dataZoomIndex: 0,
+          start: newXStart, end: newXEnd
+        });
+        chart.dispatchAction({
+          type: 'dataZoom', dataZoomIndex: 1,
+          start: newYStart, end: newYEnd
+        });
+      }
+    }, { passive: false });
+
+    chartDom.addEventListener('touchend', function() { lastPinchDist = 0; }, { passive: true });
+  })();
+
   window.addEventListener('resize', function() {
     if (!chart) return;
     chart.resize();
