@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
 <title>AI 游戏创新监控</title>
 <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
@@ -434,17 +435,22 @@ a:hover { text-decoration: underline; }
   <!-- ===== Chart View ===== -->
   <div class="view active" id="view-chart">
     <div class="chart-view-scroll">
-      <div class="chart-subtitle">
-        X轴 = AI 核心程度（去掉AI玩法是否成立）&nbsp;&nbsp;|&nbsp;&nbsp;Y轴 = 讨论度&nbsp;&nbsp;|&nbsp;&nbsp;气泡大小 = 用户量
-      </div>
       <div class="chart-container">
         <div id="bubbleChart"></div>
       </div>
       <div class="chart-legend">
       <div class="legend-group">
         <span class="legend-label">颜色</span>
-        <span class="legend-item"><span class="legend-dot" style="background:#FFC107"></span>AI原生游戏</span>
+        <span class="legend-item"><span class="legend-dot" style="background:#D4915C"></span>AI原生游戏</span>
         <span class="legend-item"><span class="legend-dot" style="background:#4285F4"></span>现有游戏+AI</span>
+      </div>
+      <div class="legend-group">
+        <span class="legend-label">气泡大小</span>
+        <span class="legend-item"><span class="legend-dot size-s"></span>小</span>
+        <span class="legend-item"><span class="legend-dot size-m"></span>中</span>
+        <span class="legend-item"><span class="legend-dot size-l"></span>大</span>
+        <span class="legend-item"><span class="legend-dot size-h"></span>巨大</span>
+        <span class="legend-item" style="color:#78909C;margin-left:2px">= 用户量</span>
       </div>
     </div>
 
@@ -597,7 +603,7 @@ const PRODUCTS = [
       { title: "Backseat AI：LOL专属AI语音辅助", url: "https://ai-bot.cn/backseat-ai/", summary: "实时语音提供购买建议和策略" }
     ]},
   { id: "doudou", name: "逗逗游戏伙伴", game: "全游戏通用", ai_core: 4, buzz: 4, users: "small", category: "addon", status: "released", launch: "2025-08", desc: "AI陪伴产品，VLM实时识别游戏画面提供语音陪伴和攻略", source: "知乎评测",
-    image: "https://pic1.zhimg.com/v2-d97e7ad77b0f75e99c1b08c726f3e3ec_r.jpg",
+    image: "https://www.doudou.fun/logo.png",
     links: [
       { title: "实测首款AI游戏伙伴，能陪我玩黑神话", url: "https://zhuanlan.zhihu.com/p/1940704914780165590", summary: "VLM实时识别画面的AI陪伴体验" },
       { title: "逗逗游戏伙伴官网", url: "https://www.doudou.fun/", summary: "官网介绍与下载" }
@@ -624,13 +630,13 @@ const PRODUCTS = [
       { title: "遥远行星Steam页面", url: "https://store.steampowered.com/app/2380080/", summary: "AI生成对话与剧情的太空叙事" }
     ]},
   { id: "aivilization", name: "Aivilization", game: "港科大", ai_core: 9, buzz: 7, users: "medium", category: "native", status: "released", launch: "2025-08", desc: "2万+AI居民的虚拟小镇，AI具备MBTI人格自主社交生活", source: "港科大/知乎",
-    image: "https://pic1.zhimg.com/v2-1c5e9b0c7f5e4b3d8a2f1e6d9c8b7a04_r.jpg",
+    image: "https://aivilization.cn/og-image.png",
     links: [
       { title: "港科大Aivilization打造AI版星露谷物语", url: "https://zhuanlan.zhihu.com/p/1962183163687187590", summary: "2万AI居民MBTI人格自主社交" },
       { title: "Aivilization官网", url: "https://aivilization.cn/", summary: "AI Agent自由发展的沙盒模拟" }
     ]},
   { id: "stanford", name: "斯坦福小镇", game: "Stanford/HF", ai_core: 9, buzz: 8, users: "small", category: "native", status: "demo", launch: "2023-04", desc: "25个AI Agent组成的虚拟小镇实验，开创性AI社会模拟研究", source: "论文",
-    image: "https://reverie.herokuapp.com/assets/media/demo_screenshot.png",
+    image: "https://raw.githubusercontent.com/joonspk-research/generative_agents/main/environment/frontend_server/storage/base_the_ville_isabella_maria_klaus/environment/the_ville/visuals/the_ville.png",
     links: [
       { title: "斯坦福AI小镇论文解读", url: "https://www.bilibili.com/video/BV1ch4y1S7UF/", summary: "B站论文精读25个AI Agent社会模拟" },
       { title: "Generative Agents原始论文", url: "https://arxiv.org/abs/2304.03442", summary: "开创性AI社会模拟学术论文" }
@@ -652,7 +658,7 @@ const PRODUCTS = [
       { title: "1001夜Steam页面", url: "https://store.steampowered.com/app/2658420/", summary: "AI每次生成不同故事的冒险" }
     ]},
   { id: "eve-ai", name: "EVE", game: "独立产品", ai_core: 7, buzz: 7, users: "medium", category: "native", status: "released", launch: "2025-06", desc: "首款3D AI伴侣，能送外卖点奶茶，跨次元壁互动引爆话题", source: "知乎/社媒",
-    image: "https://pic1.zhimg.com/v2-bf3a7d9d8e6f5c4b3a2e1d0c9f8b7a65_r.jpg",
+    image: "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2592560/header.jpg",
     links: [
       { title: "实测首款3D AI伴侣EVE", url: "https://zhuanlan.zhihu.com/p/1922935019992781500", summary: "收到AI送的第一杯奶茶体验" }
     ]},
@@ -663,7 +669,7 @@ const PRODUCTS = [
       { title: "AI Dungeon Steam页面", url: "https://store.steampowered.com/app/1888160/", summary: "AI实时生成无限剧情分支" }
     ]},
   { id: "yandere-cat", name: "病娇猫娘女友", game: "独立游戏", ai_core: 7, buzz: 4, users: "small", category: "native", status: "released", launch: "2024-08", desc: "基于LLM的AI角色扮演互动游戏，主打情感陪伴", source: "TapTap评价",
-    image: "https://img.tapimg.net/market/images/be3e7e3d9c5d2c7a8b4e1f6d0a9c8b7e.png",
+    image: "https://img.tapimg.net/market/images/be3e7e3d9c5d2c7a8b4e1f6d0a9c8b7e.png?imageView2/2/w/600",
     links: [
       { title: "病娇猫娘女友TapTap页面", url: "https://www.taptap.cn/app/376286", summary: "LLM驱动的AI角色扮演陪伴" }
     ]},
@@ -704,7 +710,7 @@ const USERS_ORDER = { small: 1, medium: 2, large: 3, huge: 4 };
 
 // ========== Color Mapping ==========
 // category: native=AI原生游戏, addon=现有游戏AI玩法
-const CAT_COLOR = { native: "#FFC107", addon: "#4285F4" };
+const CAT_COLOR = { native: "#D4915C", addon: "#4285F4" };
 const CAT_LABEL = { native: "AI原生游戏", addon: "现有游戏+AI" };
 const STATUS_LABEL = { released: "已上线", demo: "Demo" };
 
@@ -784,22 +790,23 @@ function initChart() {
       { type: 'inside', yAxisIndex: 0, filterMode: 'none' }
     ],
     xAxis: {
-      name: 'AI 核心程度',
-      nameLocation: 'center', nameGap: 36,
+      name: 'AI 核心程度（去掉AI玩法是否成立）→',
+      nameLocation: 'center', nameGap: 24,
       nameTextStyle: { color: '#78909C', fontSize: 13 },
       min: 0, max: 10,
       splitLine: { lineStyle: { color: '#243447' } },
-      axisLine: { lineStyle: { color: '#243447' } },
+      axisLine: { lineStyle: { color: '#243447' }, symbol: ['none', 'arrow'], symbolSize: [8, 8] },
       axisLabel: { color: '#78909C', fontSize: 12 },
       axisTick: { show: false }
     },
     yAxis: {
-      name: '讨论度',
-      nameLocation: 'center', nameGap: 40,
-      nameTextStyle: { color: '#78909C', fontSize: 13 },
+      name: '讨论度 ↑',
+      nameLocation: 'end', nameGap: 12,
+      nameRotate: 0,
+      nameTextStyle: { color: '#78909C', fontSize: 13, align: 'left', padding: [0, 0, 0, -40] },
       min: 0, max: 10,
       splitLine: { lineStyle: { color: '#243447' } },
-      axisLine: { lineStyle: { color: '#243447' } },
+      axisLine: { lineStyle: { color: '#243447' }, symbol: ['none', 'arrow'], symbolSize: [8, 8] },
       axisLabel: { color: '#78909C', fontSize: 12 },
       axisTick: { show: false }
     },
@@ -949,7 +956,7 @@ function openCommentPanel(product) {
   // Image
   var imgEl = document.getElementById('commentImage');
   if (product.image) {
-    imgEl.innerHTML = '<img src="' + product.image + '" alt="' + product.name + '" onerror="this.style.display=\'none\'">';
+    imgEl.innerHTML = '<img src="' + product.image + '" alt="' + product.name + '" referrerpolicy="no-referrer" onerror="this.style.display=\'none\'">';
   } else {
     imgEl.innerHTML = '';
   }
