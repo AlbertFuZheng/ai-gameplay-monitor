@@ -6,7 +6,29 @@
 <title>AI 游戏创新监控</title>
 <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-<script src="daily-reports.js"></script>
+<script>
+// Dynamic load daily-reports.js with cache-busting
+(function(){
+  var s = document.createElement('script');
+  s.src = 'daily-reports.js?v=' + Date.now();
+  s.onload = function() {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initAll);
+    } else {
+      initAll();
+    }
+  };
+  s.onerror = function() {
+    window.DAILY_REPORTS = [];
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initAll);
+    } else {
+      initAll();
+    }
+  };
+  document.head.appendChild(s);
+})();
+</script>
 <style>
 /* ========== CSS Variables ========== */
 :root {
@@ -860,11 +882,11 @@ function selectReport(date) {
 }
 
 // ========== Init ==========
-document.addEventListener('DOMContentLoaded', function() {
+function initAll() {
   initChart();
   renderProductTable(null, 'asc');
   initReports();
-});
+}
 </script>
 </body>
 </html>
