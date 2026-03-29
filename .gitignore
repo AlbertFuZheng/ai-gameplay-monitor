@@ -1,0 +1,13 @@
+# 本地配置文件（不上传）
+监控配置.md
+AI玩法产品库.md
+
+# 每日日报 Markdown 本地备份（不上传，日报数据通过 daily-reports.js 同步）
+*-AI游戏创新日报.md
+
+# WorkBuddy 工作目录
+.workbuddy/
+
+# 系统文件
+.DS_Store
+Thumbs.db

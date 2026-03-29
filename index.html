@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 游戏创新监控</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="daily-reports.js"></script>
+<style>
+/* ========== CSS Variables ========== */
+:root {
+  --bg-primary: #0F1923;
+  --bg-secondary: #1A2634;
+  --bg-tertiary: #243447;
+  --blue: #4285F4;
+  --red: #EA4335;
+  --purple: #9B59B6;
+  --text-primary: #FFFFFF;
+  --text-secondary: #B0BEC5;
+  --text-muted: #78909C;
+  --border: #2C3E50;
+  --nav-height: 60px;
+}
+
+/* ========== Reset & Base ========== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-secondary);
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+a { color: var(--blue); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ========== Scrollbar ========== */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb { background: var(--bg-tertiary); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--border); }
+
+/* ========== Navigation ========== */
+.navbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  height: var(--nav-height);
+  background: var(--bg-primary);
+  border-bottom: 1px solid var(--bg-tertiary);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 24px;
+}
+.nav-logo {
+  font-size: 18px; font-weight: 700;
+  background: linear-gradient(135deg, var(--blue), var(--purple));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text; white-space: nowrap;
+}
+.nav-tabs { display: flex; gap: 4px; position: relative; }
+.nav-tab {
+  padding: 8px 20px; border: none; background: none;
+  color: var(--text-muted); font-size: 14px; cursor: pointer;
+  border-radius: 8px; transition: all 0.2s;
+  font-family: inherit;
+}
+.nav-tab:hover { color: var(--text-secondary); background: rgba(66,133,244,0.08); }
+.nav-tab.active {
+  color: var(--text-primary);
+  background: rgba(66,133,244,0.15);
+}
+.nav-tab.active::after {
+  content: ''; position: absolute; bottom: -1px; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--blue), var(--purple));
+  border-radius: 1px;
+}
+.nav-tab-wrapper { position: relative; display: inline-flex; }
+.nav-update {
+  font-size: 12px; color: var(--text-muted); white-space: nowrap;
+}
+
+/* ========== Main Content ========== */
+.main { padding-top: var(--nav-height); height: 100vh; }
+.view { display: none; height: calc(100vh - var(--nav-height)); }
+.view.active { display: flex; flex-direction: column; }
+
+/* ========== Bubble Chart View ========== */
+.chart-subtitle {
+  text-align: center; padding: 12px 16px 4px;
+  font-size: 13px; color: var(--text-muted);
+}
+.chart-container { flex: 1; min-height: 0; position: relative; }
+#bubbleChart { width: 100%; height: 100%; }
+
+/* ========== Legend ========== */
+.chart-legend {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 24px;
+  padding: 10px 16px 14px; border-top: 1px solid var(--bg-tertiary);
+}
+.legend-group { display: flex; align-items: center; gap: 12px; }
+.legend-label { font-size: 11px; color: var(--text-muted); margin-right: 4px; font-weight: 600; }
+.legend-item { display: flex; align-items: center; gap: 5px; font-size: 11px; color: var(--text-muted); }
+.legend-dot {
+  width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
+}
+.legend-dot.blue { background: var(--blue); }
+.legend-dot.red { background: var(--red); }
+.legend-dot.purple { background: var(--purple); }
+.legend-dot.solid { border: 2px solid var(--text-muted); background: transparent; }
+.legend-dot.dashed { border: 2px dashed var(--text-muted); background: transparent; }
+.legend-dot.size-s { width: 8px; height: 8px; background: var(--text-muted); }
+.legend-dot.size-m { width: 14px; height: 14px; background: var(--text-muted); }
+.legend-dot.size-l { width: 20px; height: 20px; background: var(--text-muted); }
+.legend-dot.size-h { width: 26px; height: 26px; background: var(--text-muted); }
+
+/* ========== Comment Panel ========== */
+.comment-overlay {
+  display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.5); z-index: 200;
+}
+.comment-overlay.active { display: block; }
+.comment-panel {
+  position: fixed; z-index: 201;
+  background: rgba(15,25,35,0.92);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  border-left: 1px solid var(--bg-tertiary);
+  display: flex; flex-direction: column;
+  transition: transform 0.3s ease;
+}
+/* PC */
+@media (min-width: 768px) {
+  .comment-panel {
+    top: 0; right: 0; bottom: 0; width: 380px;
+    border-radius: 16px 0 0 16px;
+    transform: translateX(100%);
+  }
+  .comment-panel.open { transform: translateX(0); }
+}
+/* Mobile */
+@media (max-width: 767px) {
+  .comment-panel {
+    left: 0; right: 0; bottom: 0; height: 70vh;
+    border-radius: 16px 16px 0 0;
+    border-left: none; border-top: 1px solid var(--bg-tertiary);
+    transform: translateY(100%);
+  }
+  .comment-panel.open { transform: translateY(0); }
+}
+
+.comment-header {
+  padding: 20px 20px 12px; border-bottom: 1px solid var(--bg-tertiary);
+}
+.comment-header-top {
+  display: flex; justify-content: space-between; align-items: flex-start;
+}
+.comment-product-name { font-size: 18px; font-weight: 700; color: var(--text-primary); }
+.comment-product-game { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
+.comment-close {
+  width: 32px; height: 32px; border: none; background: var(--bg-tertiary);
+  color: var(--text-muted); border-radius: 8px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; font-size: 18px;
+  transition: all 0.2s; flex-shrink: 0;
+}
+.comment-close:hover { background: var(--border); color: var(--text-primary); }
+
+.comment-scores {
+  display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap;
+}
+.score-badge {
+  display: flex; align-items: center; gap: 4px;
+  padding: 4px 10px; border-radius: 6px;
+  background: var(--bg-tertiary); font-size: 11px; color: var(--text-secondary);
+}
+.score-badge .dot { width: 6px; height: 6px; border-radius: 50%; }
+
+.comment-list {
+  flex: 1; overflow-y: auto; padding: 16px 20px;
+}
+.comment-empty {
+  text-align: center; padding: 40px 20px;
+  color: var(--text-muted); font-size: 13px;
+}
+.comment-item {
+  padding: 12px 0; border-bottom: 1px solid var(--bg-tertiary);
+  position: relative;
+}
+.comment-item:last-child { border-bottom: none; }
+.comment-time { font-size: 11px; color: var(--text-muted); }
+.comment-text { font-size: 14px; color: var(--text-secondary); margin-top: 4px; line-height: 1.6; }
+.comment-delete {
+  position: absolute; top: 12px; right: 0;
+  width: 24px; height: 24px; border: none; background: none;
+  color: var(--text-muted); cursor: pointer; font-size: 14px; opacity: 0;
+  transition: opacity 0.2s; border-radius: 4px;
+}
+.comment-item:hover .comment-delete { opacity: 1; }
+.comment-delete:hover { color: var(--red); background: rgba(234,67,53,0.1); }
+
+.comment-input-area {
+  padding: 12px 20px 20px;
+  border-top: 1px solid var(--bg-tertiary);
+  display: flex; gap: 8px;
+}
+.comment-textarea {
+  flex: 1; background: var(--bg-tertiary); border: 1px solid transparent;
+  border-radius: 8px; padding: 10px 12px; color: var(--text-primary);
+  font-size: 13px; font-family: inherit; resize: none; min-height: 44px;
+  max-height: 120px; transition: border-color 0.2s;
+}
+.comment-textarea:focus { outline: none; border-color: var(--blue); }
+.comment-textarea::placeholder { color: var(--text-muted); }
+.comment-submit {
+  padding: 8px 16px; background: var(--blue); color: white;
+  border: none; border-radius: 8px; font-size: 13px; cursor: pointer;
+  font-family: inherit; transition: background 0.2s; align-self: flex-end;
+}
+.comment-submit:hover { background: #3367D6; }
+
+/* ========== Daily Report View ========== */
+.report-view { flex-direction: row; }
+
+.report-sidebar {
+  width: 220px; background: var(--bg-secondary);
+  border-right: 1px solid var(--bg-tertiary);
+  overflow-y: auto; flex-shrink: 0;
+}
+.report-sidebar-title {
+  padding: 16px 16px 12px; font-size: 13px; font-weight: 600;
+  color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px;
+}
+.report-date-item {
+  padding: 10px 16px; cursor: pointer; font-size: 14px;
+  color: var(--text-muted); transition: all 0.15s;
+  border-left: 3px solid transparent;
+}
+.report-date-item:hover { background: var(--bg-tertiary); color: var(--text-secondary); }
+.report-date-item.active {
+  background: var(--bg-tertiary); color: var(--text-primary);
+  border-left-color: var(--blue);
+}
+
+.report-content {
+  flex: 1; overflow-y: auto; padding: 24px;
+}
+.report-content-inner {
+  max-width: 800px; margin: 0 auto;
+}
+
+/* Mobile date selector */
+.report-mobile-select {
+  display: none; padding: 12px 16px;
+  background: var(--bg-secondary); border-bottom: 1px solid var(--bg-tertiary);
+}
+.report-mobile-select select {
+  width: 100%; padding: 8px 12px; background: var(--bg-tertiary);
+  color: var(--text-primary); border: 1px solid var(--border);
+  border-radius: 8px; font-size: 14px; font-family: inherit;
+}
+
+.report-empty {
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: center; height: 100%; color: var(--text-muted);
+}
+.report-empty-icon { font-size: 48px; margin-bottom: 16px; opacity: 0.5; }
+.report-empty-text { font-size: 15px; }
+.report-empty-sub { font-size: 13px; margin-top: 6px; }
+
+/* ========== Markdown Rendered Styles ========== */
+.md-content h1 {
+  font-size: 24px; color: var(--text-primary); font-weight: 700;
+  padding-bottom: 12px; margin-bottom: 20px;
+  border-bottom: 2px solid;
+  border-image: linear-gradient(90deg, var(--blue), var(--purple)) 1;
+}
+.md-content h2 {
+  font-size: 18px; color: var(--text-primary); font-weight: 600;
+  margin: 24px 0 12px;
+}
+.md-content h3 {
+  font-size: 15px; color: var(--blue); font-weight: 600;
+  margin: 16px 0 8px;
+}
+.md-content p { margin: 8px 0; line-height: 1.7; font-size: 14px; }
+.md-content strong { color: var(--text-primary); }
+.md-content ul, .md-content ol { padding-left: 20px; margin: 8px 0; }
+.md-content li { margin: 4px 0; line-height: 1.6; font-size: 14px; }
+.md-content li::marker { color: var(--blue); }
+.md-content blockquote {
+  border-left: 3px solid var(--blue); padding: 8px 16px;
+  background: var(--bg-secondary); margin: 12px 0; border-radius: 0 8px 8px 0;
+}
+.md-content hr { border: none; border-top: 1px solid var(--bg-tertiary); margin: 20px 0; }
+.md-content a { color: var(--blue); }
+.md-content a:hover { text-decoration: underline; }
+.md-content code {
+  background: var(--bg-tertiary); padding: 2px 6px; border-radius: 4px;
+  font-size: 13px; color: var(--red);
+}
+
+/* ========== Responsive ========== */
+@media (max-width: 767px) {
+  .nav-logo { font-size: 15px; }
+  .nav-tab { padding: 6px 14px; font-size: 13px; }
+  .nav-update { display: none; }
+  .report-sidebar { display: none; }
+  .report-mobile-select { display: block; }
+  .report-content { padding: 16px; }
+  .chart-subtitle { font-size: 12px; padding: 8px 12px 2px; }
+  .chart-legend { gap: 12px; padding: 8px 12px 10px; }
+  .legend-group { gap: 8px; }
+  .report-view { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+
+<!-- ========== Navigation ========== -->
+<nav class="navbar">
+  <div class="nav-logo">🎮 AI 游戏创新监控</div>
+  <div class="nav-tabs">
+    <div class="nav-tab-wrapper">
+      <button class="nav-tab active" onclick="switchView('chart')" id="tab-chart">产品全景图</button>
+    </div>
+    <div class="nav-tab-wrapper">
+      <button class="nav-tab" onclick="switchView('report')" id="tab-report">每日日报</button>
+    </div>
+  </div>
+  <div class="nav-update" id="lastUpdate">最后更新：--</div>
+</nav>
+
+<!-- ========== Main Content ========== -->
+<div class="main">
+
+  <!-- ===== Chart View ===== -->
+  <div class="view active" id="view-chart">
+    <div class="chart-subtitle">
+      X轴 = AI 核心程度（去掉AI玩法是否成立）&nbsp;&nbsp;|&nbsp;&nbsp;Y轴 = 玩法乐趣&nbsp;&nbsp;|&nbsp;&nbsp;气泡大小 = 综合影响力
+    </div>
+    <div class="chart-container">
+      <div id="bubbleChart"></div>
+    </div>
+    <div class="chart-legend">
+      <div class="legend-group">
+        <span class="legend-label">颜色</span>
+        <span class="legend-item"><span class="legend-dot blue"></span>用户量驱动</span>
+        <span class="legend-item"><span class="legend-dot red"></span>讨论度驱动</span>
+        <span class="legend-item"><span class="legend-dot purple"></span>两者兼具</span>
+      </div>
+      <div class="legend-group">
+        <span class="legend-label">边框</span>
+        <span class="legend-item"><span class="legend-dot solid"></span>已上线</span>
+        <span class="legend-item"><span class="legend-dot dashed"></span>Demo</span>
+      </div>
+      <div class="legend-group">
+        <span class="legend-label">大小</span>
+        <span class="legend-item"><span class="legend-dot size-s"></span>小</span>
+        <span class="legend-item"><span class="legend-dot size-m"></span>中</span>
+        <span class="legend-item"><span class="legend-dot size-l"></span>大</span>
+        <span class="legend-item"><span class="legend-dot size-h"></span>巨大</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Report View ===== -->
+  <div class="view" id="view-report">
+    <div class="report-mobile-select">
+      <select id="reportMobileSelect" onchange="selectReport(this.value)">
+        <option value="">选择日期...</option>
+      </select>
+    </div>
+    <div class="report-sidebar" id="reportSidebar">
+      <div class="report-sidebar-title">📅 日报列表</div>
+    </div>
+    <div class="report-content">
+      <div class="report-content-inner md-content" id="reportContent">
+        <div class="report-empty">
+          <div class="report-empty-icon">📰</div>
+          <div class="report-empty-text">暂无日报</div>
+          <div class="report-empty-sub">首期日报将在明天 9:00 自动生成</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== Comment Panel ========== -->
+<div class="comment-overlay" id="commentOverlay" onclick="closeCommentPanel()"></div>
+<div class="comment-panel" id="commentPanel">
+  <div class="comment-header">
+    <div class="comment-header-top">
+      <div>
+        <div class="comment-product-name" id="commentProductName">--</div>
+        <div class="comment-product-game" id="commentProductGame">--</div>
+      </div>
+      <button class="comment-close" onclick="closeCommentPanel()">✕</button>
+    </div>
+    <div class="comment-scores" id="commentScores"></div>
+  </div>
+  <div class="comment-list" id="commentList">
+    <div class="comment-empty">还没有评论，写下你的第一条观察吧</div>
+  </div>
+  <div class="comment-input-area">
+    <textarea class="comment-textarea" id="commentInput" placeholder="写下你的观察和思考..." rows="2"></textarea>
+    <button class="comment-submit" onclick="submitComment()">发送</button>
+  </div>
+</div>
+
+<script>
+// ========== Product Data ==========
+const PRODUCTS = [
+  { id: "xiamashen", name: "小马神", game: "和平精英", ai_core: 3, fun: 5, influence: "large", influence_type: "user", status: "released", desc: "AI驱动的局内陪伴宠物，具备基础跟随和互动行为", source: "官方公告" },
+  { id: "ai-jiaren", name: "AI假人", game: "超自然行动组", ai_core: 8, fun: 4, influence: "medium", influence_type: "buzz", status: "released", desc: "基于AI的智能假人系统，能模拟真实玩家行为模式", source: "社媒讨论" },
+  { id: "ai-dungeon", name: "AI Dungeon", game: "AI Dungeon", ai_core: 9, fun: 6, influence: "medium", influence_type: "both", status: "released", desc: "完全由GPT驱动的文字冒险游戏，AI实时生成剧情", source: "Steam评价" },
+  { id: "yandere-cat", name: "病娇猫娘女友", game: "独立游戏", ai_core: 7, fun: 5, influence: "small", influence_type: "buzz", status: "released", desc: "基于LLM的AI角色扮演互动游戏，主打情感陪伴", source: "TapTap评价" },
+  { id: "ai-spellcraft", name: "AI Spellcraft", game: "独立游戏", ai_core: 8, fun: 5, influence: "small", influence_type: "buzz", status: "released", desc: "使用AI咒语生成机制的策略对战游戏", source: "Steam评价" },
+  { id: "ai-town", name: "AI Town", game: "Hugging Face", ai_core: 9, fun: 4, influence: "small", influence_type: "buzz", status: "demo", desc: "基于LLM的虚拟小镇模拟，AI居民自主社交", source: "HuggingFace" },
+  { id: "neuro-sama", name: "Neuro-sama", game: "Twitch", ai_core: 8, fun: 7, influence: "large", influence_type: "buzz", status: "released", desc: "AI虚拟主播，融合视觉识别+LLM+TTS的复合互动体", source: "Twitch数据" },
+  { id: "suck-up", name: "Suck Up!", game: "独立游戏", ai_core: 8, fun: 7, influence: "medium", influence_type: "buzz", status: "released", desc: "用AI对话说服NPC开门的吸血鬼游戏，语音识别+LLM", source: "Steam评价" }
+];
+
+// ========== Influence Size Mapping ==========
+const INFLUENCE_SIZE = { small: 24, medium: 42, large: 64, huge: 85 };
+const INFLUENCE_LABEL = { small: "小", medium: "中", large: "大", huge: "巨大" };
+
+// ========== Color Mapping ==========
+const TYPE_COLOR = {
+  user: "#4285F4",
+  buzz: "#EA4335",
+  both: "#9B59B6"
+};
+const TYPE_LABEL = {
+  user: "用户量驱动",
+  buzz: "讨论度驱动",
+  both: "两者兼具"
+};
+const STATUS_LABEL = { released: "已上线", demo: "Demo" };
+
+// ========== Comments (localStorage) ==========
+const COMMENTS_KEY = "ai-gameplay-comments";
+function getComments() {
+  try { return JSON.parse(localStorage.getItem(COMMENTS_KEY)) || {}; }
+  catch { return {}; }
+}
+function saveComments(data) {
+  localStorage.setItem(COMMENTS_KEY, JSON.stringify(data));
+}
+
+// ========== View Switching ==========
+function switchView(view) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('view-' + view).classList.add('active');
+  document.getElementById('tab-' + view).classList.add('active');
+  if (view === 'chart') {
+    setTimeout(() => chart && chart.resize(), 100);
+  }
+}
+
+// ========== Bubble Chart ==========
+let chart = null;
+let currentProduct = null;
+
+function initChart() {
+  const dom = document.getElementById('bubbleChart');
+  chart = echarts.init(dom, null, { renderer: 'canvas' });
+
+  const seriesData = PRODUCTS.map((p, i) => ({
+    name: p.name,
+    value: [p.ai_core, p.fun, INFLUENCE_SIZE[p.influence]],
+    symbolSize: INFLUENCE_SIZE[p.influence],
+    itemStyle: {
+      color: TYPE_COLOR[p.influence_type],
+      opacity: 0.85,
+      borderColor: TYPE_COLOR[p.influence_type],
+      borderWidth: 3,
+      borderType: p.status === 'demo' ? 'dashed' : 'solid'
+    },
+    _product: p
+  }));
+
+  const option = {
+    backgroundColor: 'transparent',
+    grid: { left: 60, right: 40, top: 40, bottom: 60 },
+    xAxis: {
+      name: 'AI 核心程度',
+      nameLocation: 'center',
+      nameGap: 36,
+      nameTextStyle: { color: '#78909C', fontSize: 13 },
+      min: 0, max: 10,
+      splitLine: { lineStyle: { color: '#243447' } },
+      axisLine: { lineStyle: { color: '#243447' } },
+      axisLabel: { color: '#78909C', fontSize: 12 },
+      axisTick: { show: false }
+    },
+    yAxis: {
+      name: '玩法乐趣',
+      nameLocation: 'center',
+      nameGap: 40,
+      nameTextStyle: { color: '#78909C', fontSize: 13 },
+      min: 0, max: 10,
+      splitLine: { lineStyle: { color: '#243447' } },
+      axisLine: { lineStyle: { color: '#243447' } },
+      axisLabel: { color: '#78909C', fontSize: 12 },
+      axisTick: { show: false }
+    },
+    tooltip: {
+      trigger: 'item',
+      backgroundColor: 'rgba(15,25,35,0.95)',
+      borderColor: '#243447',
+      borderWidth: 1,
+      padding: [12, 16],
+      textStyle: { color: '#B0BEC5', fontSize: 13 },
+      formatter: function(params) {
+        const p = params.data._product;
+        const comments = getComments()[p.id] || [];
+        const lastComment = comments.length > 0 ? comments[comments.length - 1] : null;
+        let html = '<div style="max-width:280px">';
+        html += '<div style="font-size:16px;font-weight:700;color:#fff;margin-bottom:4px">' + p.name + '</div>';
+        html += '<div style="font-size:12px;color:#78909C;margin-bottom:8px">' + p.game + '</div>';
+        html += '<div style="font-size:12px;color:#B0BEC5;margin-bottom:8px">' + p.desc + '</div>';
+        html += '<div style="display:flex;gap:12px;font-size:11px;color:#78909C">';
+        html += '<span>AI核心: <b style="color:#fff">' + p.ai_core + '</b></span>';
+        html += '<span>乐趣: <b style="color:#fff">' + p.fun + '</b></span>';
+        html += '<span>影响力: <b style="color:#fff">' + INFLUENCE_LABEL[p.influence] + '</b></span>';
+        html += '</div>';
+        if (lastComment) {
+          html += '<div style="margin-top:8px;padding-top:8px;border-top:1px solid #243447;font-size:12px;color:#78909C">';
+          html += '💬 ' + lastComment.text.substring(0, 60) + (lastComment.text.length > 60 ? '...' : '');
+          html += '</div>';
+        }
+        html += '<div style="margin-top:6px;font-size:11px;color:#4285F4">点击查看详情与评论 →</div>';
+        html += '</div>';
+        return html;
+      }
+    },
+    series: [{
+      type: 'scatter',
+      data: seriesData,
+      label: {
+        show: true,
+        position: 'top',
+        formatter: function(params) { return params.data._product.name; },
+        color: '#78909C',
+        fontSize: 11,
+        distance: 6
+      },
+      emphasis: {
+        scale: 1.3,
+        label: { color: '#FFFFFF', fontWeight: 'bold' }
+      },
+      animationDuration: 800,
+      animationEasing: 'cubicOut'
+    }]
+  };
+
+  chart.setOption(option);
+
+  // Click -> open comment panel
+  chart.on('click', function(params) {
+    if (params.data && params.data._product) {
+      openCommentPanel(params.data._product);
+    }
+  });
+
+  window.addEventListener('resize', () => chart && chart.resize());
+}
+
+// ========== Comment Panel ==========
+function openCommentPanel(product) {
+  currentProduct = product;
+  document.getElementById('commentProductName').textContent = product.name;
+  document.getElementById('commentProductGame').textContent = product.game;
+
+  // Scores
+  const scoresHtml = [
+    { label: 'AI核心', value: product.ai_core, color: '#4285F4' },
+    { label: '乐趣', value: product.fun, color: '#4CAF50' },
+    { label: '影响力', value: INFLUENCE_LABEL[product.influence], color: '#FF9800' },
+    { label: '类型', value: TYPE_LABEL[product.influence_type], color: TYPE_COLOR[product.influence_type] },
+    { label: '状态', value: STATUS_LABEL[product.status], color: product.status === 'released' ? '#4CAF50' : '#FF9800' }
+  ].map(s =>
+    '<span class="score-badge"><span class="dot" style="background:' + s.color + '"></span>' + s.label + ': ' + s.value + '</span>'
+  ).join('');
+  document.getElementById('commentScores').innerHTML = scoresHtml;
+
+  // Comments
+  renderComments(product.id);
+
+  document.getElementById('commentOverlay').classList.add('active');
+  document.getElementById('commentPanel').classList.add('open');
+  document.getElementById('commentInput').value = '';
+}
+
+function closeCommentPanel() {
+  document.getElementById('commentOverlay').classList.remove('active');
+  document.getElementById('commentPanel').classList.remove('open');
+  currentProduct = null;
+}
+
+function renderComments(productId) {
+  const comments = getComments()[productId] || [];
+  const container = document.getElementById('commentList');
+  if (comments.length === 0) {
+    container.innerHTML = '<div class="comment-empty">还没有评论，写下你的第一条观察吧</div>';
+    return;
+  }
+  container.innerHTML = [...comments].reverse().map((c, i) => {
+    const realIndex = comments.length - 1 - i;
+    return '<div class="comment-item">'
+      + '<div class="comment-time">' + c.time + '</div>'
+      + '<div class="comment-text">' + escapeHtml(c.text) + '</div>'
+      + '<button class="comment-delete" onclick="deleteComment(\'' + productId + '\',' + realIndex + ')" title="删除">🗑</button>'
+      + '</div>';
+  }).join('');
+}
+
+function submitComment() {
+  if (!currentProduct) return;
+  const input = document.getElementById('commentInput');
+  const text = input.value.trim();
+  if (!text) return;
+
+  const comments = getComments();
+  if (!comments[currentProduct.id]) comments[currentProduct.id] = [];
+  const now = new Date();
+  const timeStr = now.getFullYear() + '-'
+    + String(now.getMonth()+1).padStart(2,'0') + '-'
+    + String(now.getDate()).padStart(2,'0') + ' '
+    + String(now.getHours()).padStart(2,'0') + ':'
+    + String(now.getMinutes()).padStart(2,'0');
+  comments[currentProduct.id].push({ text, time: timeStr });
+  saveComments(comments);
+  renderComments(currentProduct.id);
+  input.value = '';
+}
+
+function deleteComment(productId, index) {
+  const comments = getComments();
+  if (comments[productId]) {
+    comments[productId].splice(index, 1);
+    saveComments(comments);
+    renderComments(productId);
+  }
+}
+
+function escapeHtml(text) {
+  const d = document.createElement('div');
+  d.textContent = text;
+  return d.innerHTML;
+}
+
+// Ctrl+Enter submit
+document.getElementById('commentInput').addEventListener('keydown', function(e) {
+  if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+    e.preventDefault();
+    submitComment();
+  }
+});
+
+// ========== Daily Report View ==========
+function initReports() {
+  const reports = (window.DAILY_REPORTS || []).slice().sort((a, b) => b.date.localeCompare(a.date));
+  const sidebar = document.getElementById('reportSidebar');
+  const select = document.getElementById('reportMobileSelect');
+
+  if (reports.length === 0) {
+    document.getElementById('reportContent').innerHTML =
+      '<div class="report-empty">'
+      + '<div class="report-empty-icon">📰</div>'
+      + '<div class="report-empty-text">暂无日报</div>'
+      + '<div class="report-empty-sub">首期日报将在明天 9:00 自动生成</div>'
+      + '</div>';
+    return;
+  }
+
+  // Update last update time
+  document.getElementById('lastUpdate').textContent = '最后更新：' + reports[0].date;
+
+  // Build sidebar
+  const titleEl = sidebar.querySelector('.report-sidebar-title');
+  sidebar.innerHTML = '';
+  sidebar.appendChild(titleEl);
+
+  reports.forEach((r, i) => {
+    const date = new Date(r.date + 'T00:00:00');
+    const weekdays = ['日', '一', '二', '三', '四', '五', '六'];
+    const label = (date.getMonth()+1) + '-' + String(date.getDate()).padStart(2,'0')
+      + ' 周' + weekdays[date.getDay()];
+
+    const div = document.createElement('div');
+    div.className = 'report-date-item' + (i === 0 ? ' active' : '');
+    div.textContent = label;
+    div.onclick = () => selectReport(r.date);
+    div.dataset.date = r.date;
+    sidebar.appendChild(div);
+
+    const opt = document.createElement('option');
+    opt.value = r.date;
+    opt.textContent = r.date + ' 周' + weekdays[date.getDay()];
+    if (i === 0) opt.selected = true;
+    select.appendChild(opt);
+  });
+
+  // Show first report
+  selectReport(reports[0].date);
+}
+
+function selectReport(date) {
+  const reports = window.DAILY_REPORTS || [];
+  const report = reports.find(r => r.date === date);
+  const contentEl = document.getElementById('reportContent');
+
+  if (!report) {
+    contentEl.innerHTML = '<div class="report-empty"><div class="report-empty-icon">📰</div><div class="report-empty-text">未找到该日报</div></div>';
+    return;
+  }
+
+  contentEl.innerHTML = '<div class="report-content-inner md-content">' + marked.parse(report.content) + '</div>';
+
+  // Update sidebar active state
+  document.querySelectorAll('.report-date-item').forEach(item => {
+    item.classList.toggle('active', item.dataset.date === date);
+  });
+
+  // Update mobile select
+  document.getElementById('reportMobileSelect').value = date;
+}
+
+// ========== Init ==========
+document.addEventListener('DOMContentLoaded', function() {
+  initChart();
+  initReports();
+});
+</script>
+</body>
+</html>
