@@ -548,14 +548,7 @@ const PRODUCTS = [
 ];
 
 // ========== Influence Size Mapping ==========
-// Base sizes at reference width 1200px; will be scaled dynamically
-const INFLUENCE_BASE = { small: 22, medium: 38, large: 58, huge: 80 };
-function getInfluenceSize(influence) {
-  const chartDom = document.getElementById('bubbleChart');
-  const w = chartDom ? chartDom.clientWidth : 1200;
-  const scale = Math.max(0.4, Math.min(1.2, w / 1200));
-  return Math.round(INFLUENCE_BASE[influence] * scale);
-}
+const INFLUENCE_SIZE = { small: 24, medium: 42, large: 64, huge: 85 };
 const INFLUENCE_LABEL = { small: "小", medium: "中", large: "大", huge: "巨大" };
 const INFLUENCE_ORDER = { small: 1, medium: 2, large: 3, huge: 4 };
 
@@ -575,9 +568,9 @@ function saveComments(data) { localStorage.setItem(COMMENTS_KEY, JSON.stringify(
 // ========== Overlap Resolution ==========
 function resolveOverlaps(products) {
   const coords = products.map(p => ({ x: p.ai_core, y: p.fun, ox: 0, oy: 0 }));
-  const threshold = 0.8; // minimum distance in data units
+  const threshold = 0.6; // minimum distance in data units
   // Simple iterative push-apart
-  for (let iter = 0; iter < 8; iter++) {
+  for (let iter = 0; iter < 5; iter++) {
     for (let i = 0; i < coords.length; i++) {
       for (let j = i + 1; j < coords.length; j++) {
         const dx = (coords[j].x + coords[j].ox) - (coords[i].x + coords[i].ox);
@@ -620,8 +613,8 @@ function initChart() {
 
   const seriesData = PRODUCTS.map((p, i) => ({
     name: p.name,
-    value: [p.ai_core + offsets[i].ox, p.fun + offsets[i].oy],
-    symbolSize: getInfluenceSize(p.influence),
+    value: [p.ai_core + offsets[i].ox, p.fun + offsets[i].oy, INFLUENCE_SIZE[p.influence]],
+    symbolSize: INFLUENCE_SIZE[p.influence],
     itemStyle: {
       color: TYPE_COLOR[p.influence_type],
       opacity: 0.85,
@@ -635,10 +628,6 @@ function initChart() {
   const option = {
     backgroundColor: 'transparent',
     grid: { left: 60, right: 40, top: 40, bottom: 60 },
-    dataZoom: [
-      { id: 'zoomX', type: 'inside', xAxisIndex: 0, filterMode: 'none', zoomOnMouseWheel: true, moveOnMouseWheel: false, moveOnMouseMove: false, zoomOnTouch: false, moveOnTouch: false, throttle: 50 },
-      { id: 'zoomY', type: 'inside', yAxisIndex: 0, filterMode: 'none', zoomOnMouseWheel: true, moveOnMouseWheel: false, moveOnMouseMove: false, zoomOnTouch: false, moveOnTouch: false, throttle: 50 }
-    ],
     xAxis: {
       name: 'AI 核心程度',
       nameLocation: 'center', nameGap: 36,
@@ -708,73 +697,7 @@ function initChart() {
   chart.on('click', function(params) {
     if (params.data && params.data._product) openCommentPanel(params.data._product);
   });
-
-  // Custom pinch zoom with reduced sensitivity (1/4 of default)
-  (function() {
-    var chartDom = document.getElementById('bubbleChart');
-    var lastPinchDist = 0;
-    var ZOOM_FACTOR = 0.25; // 1/4 sensitivity
-
-    chartDom.addEventListener('touchstart', function(e) {
-      if (e.touches.length === 2) {
-        lastPinchDist = Math.hypot(
-          e.touches[0].clientX - e.touches[1].clientX,
-          e.touches[0].clientY - e.touches[1].clientY
-        );
-        // Disable ECharts built-in touch zoom
-        chart.dispatchAction({ type: 'takeGlobalCursor', key: 'dataZoomSelect', dataZoomSelectActive: false });
-      }
-    }, { passive: true });
-
-    chartDom.addEventListener('touchmove', function(e) {
-      if (e.touches.length === 2 && lastPinchDist > 0) {
-        e.preventDefault();
-        var newDist = Math.hypot(
-          e.touches[0].clientX - e.touches[1].clientX,
-          e.touches[0].clientY - e.touches[1].clientY
-        );
-        var delta = (newDist - lastPinchDist) * ZOOM_FACTOR;
-        lastPinchDist = newDist;
-
-        // Get current zoom state
-        var optZoom = chart.getOption().dataZoom;
-        var xStart = optZoom[0].start || 0, xEnd = optZoom[0].end || 100;
-        var yStart = optZoom[1].start || 0, yEnd = optZoom[1].end || 100;
-        var zoomStep = delta * 0.15; // fine-grained step
-
-        var newXStart = Math.max(0, xStart + zoomStep);
-        var newXEnd = Math.min(100, xEnd - zoomStep);
-        var newYStart = Math.max(0, yStart + zoomStep);
-        var newYEnd = Math.min(100, yEnd - zoomStep);
-
-        // Enforce minimum span
-        if (newXEnd - newXStart < 20) return;
-        if (newYEnd - newYStart < 20) return;
-
-        chart.dispatchAction({
-          type: 'dataZoom', dataZoomIndex: 0,
-          start: newXStart, end: newXEnd
-        });
-        chart.dispatchAction({
-          type: 'dataZoom', dataZoomIndex: 1,
-          start: newYStart, end: newYEnd
-        });
-      }
-    }, { passive: false });
-
-    chartDom.addEventListener('touchend', function() { lastPinchDist = 0; }, { passive: true });
-  })();
-
-  window.addEventListener('resize', function() {
-    if (!chart) return;
-    chart.resize();
-    // Recalculate bubble sizes on resize
-    const newData = chart.getOption().series[0].data.map((d, i) => {
-      d.symbolSize = getInfluenceSize(PRODUCTS[i].influence);
-      return d;
-    });
-    chart.setOption({ series: [{ data: newData }] });
-  });
+  window.addEventListener('resize', () => chart && chart.resize());
 }
 
 // ========== Product Table ==========
