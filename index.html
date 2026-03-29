@@ -548,7 +548,14 @@ const PRODUCTS = [
 ];
 
 // ========== Influence Size Mapping ==========
-const INFLUENCE_SIZE = { small: 24, medium: 42, large: 64, huge: 85 };
+// Base sizes at reference width 1200px; will be scaled dynamically
+const INFLUENCE_BASE = { small: 22, medium: 38, large: 58, huge: 80 };
+function getInfluenceSize(influence) {
+  const chartDom = document.getElementById('bubbleChart');
+  const w = chartDom ? chartDom.clientWidth : 1200;
+  const scale = Math.max(0.4, Math.min(1.2, w / 1200));
+  return Math.round(INFLUENCE_BASE[influence] * scale);
+}
 const INFLUENCE_LABEL = { small: "小", medium: "中", large: "大", huge: "巨大" };
 const INFLUENCE_ORDER = { small: 1, medium: 2, large: 3, huge: 4 };
 
@@ -613,8 +620,8 @@ function initChart() {
 
   const seriesData = PRODUCTS.map((p, i) => ({
     name: p.name,
-    value: [p.ai_core + offsets[i].ox, p.fun + offsets[i].oy, INFLUENCE_SIZE[p.influence]],
-    symbolSize: INFLUENCE_SIZE[p.influence],
+    value: [p.ai_core + offsets[i].ox, p.fun + offsets[i].oy],
+    symbolSize: getInfluenceSize(p.influence),
     itemStyle: {
       color: TYPE_COLOR[p.influence_type],
       opacity: 0.85,
@@ -628,6 +635,10 @@ function initChart() {
   const option = {
     backgroundColor: 'transparent',
     grid: { left: 60, right: 40, top: 40, bottom: 60 },
+    dataZoom: [
+      { type: 'inside', xAxisIndex: 0, filterMode: 'none' },
+      { type: 'inside', yAxisIndex: 0, filterMode: 'none' }
+    ],
     xAxis: {
       name: 'AI 核心程度',
       nameLocation: 'center', nameGap: 36,
@@ -697,7 +708,16 @@ function initChart() {
   chart.on('click', function(params) {
     if (params.data && params.data._product) openCommentPanel(params.data._product);
   });
-  window.addEventListener('resize', () => chart && chart.resize());
+  window.addEventListener('resize', function() {
+    if (!chart) return;
+    chart.resize();
+    // Recalculate bubble sizes on resize
+    const newData = chart.getOption().series[0].data.map((d, i) => {
+      d.symbolSize = getInfluenceSize(PRODUCTS[i].influence);
+      return d;
+    });
+    chart.setOption({ series: [{ data: newData }] });
+  });
 }
 
 // ========== Product Table ==========
