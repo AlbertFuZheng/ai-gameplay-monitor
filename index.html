@@ -456,6 +456,7 @@ a:hover { text-decoration: underline; }
                 <th data-sort="influence" data-type="influence">影响力 <span class="sort-icon">⇅</span></th>
                 <th data-sort="influence_type" data-type="string">类型 <span class="sort-icon">⇅</span></th>
                 <th data-sort="status" data-type="string">状态 <span class="sort-icon">⇅</span></th>
+                <th data-sort="launch" data-type="string">上线时间 <span class="sort-icon">⇅</span></th>
                 <th>简介</th>
                 <th>最新评论</th>
               </tr>
@@ -514,14 +515,36 @@ a:hover { text-decoration: underline; }
 <script>
 // ========== Product Data ==========
 const PRODUCTS = [
-  { id: "xiamashen", name: "小马神", game: "和平精英", ai_core: 3, fun: 5, influence: "large", influence_type: "user", status: "released", desc: "AI驱动的局内陪伴宠物，具备基础跟随和互动行为", source: "官方公告" },
-  { id: "ai-jiaren", name: "AI假人", game: "超自然行动组", ai_core: 8, fun: 4, influence: "medium", influence_type: "buzz", status: "released", desc: "基于AI的智能假人系统，能模拟真实玩家行为模式", source: "社媒讨论" },
-  { id: "ai-dungeon", name: "AI Dungeon", game: "AI Dungeon", ai_core: 9, fun: 6, influence: "medium", influence_type: "both", status: "released", desc: "完全由GPT驱动的文字冒险游戏，AI实时生成剧情", source: "Steam评价" },
-  { id: "yandere-cat", name: "病娇猫娘女友", game: "独立游戏", ai_core: 7, fun: 5, influence: "small", influence_type: "buzz", status: "released", desc: "基于LLM的AI角色扮演互动游戏，主打情感陪伴", source: "TapTap评价" },
-  { id: "ai-spellcraft", name: "AI Spellcraft", game: "独立游戏", ai_core: 8, fun: 5, influence: "small", influence_type: "buzz", status: "released", desc: "使用AI咒语生成机制的策略对战游戏", source: "Steam评价" },
-  { id: "ai-town", name: "AI Town", game: "Hugging Face", ai_core: 9, fun: 4, influence: "small", influence_type: "buzz", status: "demo", desc: "基于LLM的虚拟小镇模拟，AI居民自主社交", source: "HuggingFace" },
-  { id: "neuro-sama", name: "Neuro-sama", game: "Twitch", ai_core: 8, fun: 7, influence: "large", influence_type: "buzz", status: "released", desc: "AI虚拟主播，融合视觉识别+LLM+TTS的复合互动体", source: "Twitch数据" },
-  { id: "suck-up", name: "Suck Up!", game: "独立游戏", ai_core: 8, fun: 7, influence: "medium", influence_type: "buzz", status: "released", desc: "用AI对话说服NPC开门的吸血鬼游戏，语音识别+LLM", source: "Steam评价" }
+  { id: "xiamashen", name: "小马神", game: "和平精英", ai_core: 3, fun: 5, influence: "large", influence_type: "user", status: "released", launch: "2024-06", desc: "AI驱动的局内陪伴宠物，具备基础跟随和互动行为", source: "官方公告" },
+  { id: "bruce", name: "战犬布鲁斯", game: "和平精英", ai_core: 5, fun: 6, influence: "large", influence_type: "both", status: "released", launch: "2025-11", desc: "行业首个AI智能语音识别战犬，支持实时语音指挥战斗/救人", source: "官方公告" },
+  { id: "huaaotian", name: "花傲天", game: "和平精英", ai_core: 6, fun: 7, influence: "large", influence_type: "both", status: "released", launch: "2025-07", desc: "首位具备长期记忆的AI明星队友，继承华晨宇刚枪王人设", source: "官方公告" },
+  { id: "hpcommander", name: "和平指挥官", game: "和平精英", ai_core: 5, fun: 6, influence: "large", influence_type: "user", status: "released", launch: "2025-04", desc: "AI队友绝地指挥模式，玩家语音指挥AI队友执行战术", source: "官方公告" },
+  { id: "ai-jiaren", name: "AI假人", game: "超自然行动组", ai_core: 8, fun: 4, influence: "medium", influence_type: "buzz", status: "released", launch: "2025-12", desc: "基于AI的智能假人系统，能模拟真实玩家行为模式", source: "社媒讨论" },
+  { id: "facul", name: "F.A.C.U.L.", game: "暗区突围", ai_core: 7, fun: 6, influence: "medium", influence_type: "buzz", status: "demo", launch: "2024-08", desc: "全球首个语音指挥FPS AI队友，能听懂人话执行战术动作", source: "GDC/科隆展" },
+  { id: "wzcommander", name: "王者指挥官", game: "王者荣耀", ai_core: 4, fun: 5, influence: "large", influence_type: "user", status: "released", launch: "2025-04", desc: "AI驱动的指挥官模式，玩家一人操作五个英雄", source: "官方公告" },
+  { id: "wzlingbao", name: "王者灵宝", game: "王者荣耀", ai_core: 3, fun: 6, influence: "huge", influence_type: "both", status: "released", launch: "2025-05", desc: "AI陪玩灵宝，首日参与量破千万，能接梗抖机灵引爆社媒", source: "腾讯新闻" },
+  { id: "nshNPC", name: "逆水寒NPC", game: "逆水寒", ai_core: 6, fun: 5, influence: "large", influence_type: "both", status: "released", launch: "2023-08", desc: "国内首批接入LLM的游戏NPC，支持自由对话和情感交互", source: "官方公告" },
+  { id: "yjteammate", name: "永劫AI队友", game: "永劫无间", ai_core: 6, fun: 5, influence: "medium", influence_type: "buzz", status: "released", launch: "2024-06", desc: "全球首个游戏Copilot，多模态实时语音交流AI队友", source: "网易伏羲" },
+  { id: "deltaai", name: "三角洲AI助手", game: "三角洲行动", ai_core: 3, fun: 4, influence: "medium", influence_type: "user", status: "released", launch: "2024-10", desc: "FPS游戏内AI辅助系统，提供战术建议和局势分析", source: "官方公告" },
+  { id: "lolguardian", name: "LOL守护灵", game: "英雄联盟", ai_core: 2, fun: 3, influence: "large", influence_type: "user", status: "released", launch: "2024-09", desc: "AI驱动的局内辅助精灵，提供实时对线建议和装备推荐", source: "官方公告" },
+  { id: "backseat", name: "Backseat AI", game: "英雄联盟(第三方)", ai_core: 3, fun: 4, influence: "small", influence_type: "buzz", status: "released", launch: "2024-03", desc: "第三方AI语音辅助工具，实时提供购买建议和对线策略", source: "社区评价" },
+  { id: "doudou", name: "逗逗游戏伙伴", game: "全游戏通用", ai_core: 4, fun: 5, influence: "small", influence_type: "buzz", status: "released", launch: "2025-08", desc: "AI陪伴产品，VLM实时识别游戏画面提供语音陪伴和攻略", source: "知乎评测" },
+  { id: "inzoi", name: "inZOI", game: "Krafton", ai_core: 7, fun: 7, influence: "large", influence_type: "both", status: "released", launch: "2025-03", desc: "韩国版模拟人生，AI驱动400+心理活动让NPC自主生活", source: "IGN/Steam" },
+  { id: "aitaikongsha", name: "AI太空杀", game: "独立游戏", ai_core: 8, fun: 6, influence: "medium", influence_type: "buzz", status: "released", launch: "2024-11", desc: "太空狼人杀+AI玩家，AI能模拟人类欺骗和推理行为", source: "Steam评价" },
+  { id: "maggie", name: "麦琪的花园", game: "独立游戏", ai_core: 7, fun: 5, influence: "small", influence_type: "buzz", status: "released", launch: "2025-06", desc: "AI驱动的种植+对话游戏，植物拥有AI个性可自由交流", source: "Steam评价" },
+  { id: "farplanet", name: "遥远行星", game: "独立游戏", ai_core: 8, fun: 4, influence: "small", influence_type: "buzz", status: "released", launch: "2025-04", desc: "AI驱动的太空探索叙事游戏，全程AI生成对话和剧情分支", source: "Steam评价" },
+  { id: "aivilization", name: "Aivilization", game: "港科大", ai_core: 9, fun: 6, influence: "medium", influence_type: "buzz", status: "released", launch: "2025-08", desc: "2万+AI居民的虚拟小镇，AI具备MBTI人格自主社交生活", source: "港科大/知乎" },
+  { id: "stanford", name: "斯坦福小镇", game: "Stanford/HF", ai_core: 9, fun: 4, influence: "medium", influence_type: "buzz", status: "demo", launch: "2023-04", desc: "25个AI Agent组成的虚拟小镇实验，开创性AI社会模拟研究", source: "论文" },
+  { id: "alterabots", name: "Altera Bots", game: "Minecraft", ai_core: 8, fun: 5, influence: "small", influence_type: "buzz", status: "demo", launch: "2024-12", desc: "MIT团队在Minecraft中创建的AI Agent群体，能自主协作生存", source: "MIT研究" },
+  { id: "whisper-star", name: "星之低语", game: "独立游戏", ai_core: 9, fun: 5, influence: "medium", influence_type: "buzz", status: "released", launch: "2025-08", desc: "米哈游蔡浩宇主导的AI互动叙事游戏，第一人称对话革命", source: "Steam评价" },
+  { id: "1001nights", name: "1001夜", game: "独立游戏", ai_core: 8, fun: 5, influence: "small", influence_type: "buzz", status: "released", launch: "2025-03", desc: "AI驱动的一千零一夜故事生成游戏，每次游玩故事都不同", source: "Steam评价" },
+  { id: "eve-ai", name: "EVE", game: "独立产品", ai_core: 7, fun: 6, influence: "medium", influence_type: "buzz", status: "released", launch: "2025-06", desc: "首款3D AI伴侣，能送外卖点奶茶，跨次元壁互动引爆话题", source: "知乎/社媒" },
+  { id: "ai-dungeon", name: "AI Dungeon", game: "AI Dungeon", ai_core: 9, fun: 6, influence: "medium", influence_type: "both", status: "released", launch: "2019-12", desc: "完全由GPT驱动的文字冒险游戏，AI实时生成剧情", source: "Steam评价" },
+  { id: "yandere-cat", name: "病娇猫娘女友", game: "独立游戏", ai_core: 7, fun: 5, influence: "small", influence_type: "buzz", status: "released", launch: "2024-08", desc: "基于LLM的AI角色扮演互动游戏，主打情感陪伴", source: "TapTap评价" },
+  { id: "ai-spellcraft", name: "AI Spellcraft", game: "独立游戏", ai_core: 8, fun: 5, influence: "small", influence_type: "buzz", status: "released", launch: "2024-10", desc: "使用AI咒语生成机制的策略对战游戏", source: "Steam评价" },
+  { id: "ai-town", name: "AI Town", game: "Hugging Face", ai_core: 9, fun: 4, influence: "small", influence_type: "buzz", status: "demo", launch: "2023-08", desc: "基于LLM的虚拟小镇模拟，AI居民自主社交", source: "HuggingFace" },
+  { id: "neuro-sama", name: "Neuro-sama", game: "Twitch", ai_core: 8, fun: 7, influence: "large", influence_type: "buzz", status: "released", launch: "2022-12", desc: "AI虚拟主播，融合视觉识别+LLM+TTS的复合互动体", source: "Twitch数据" },
+  { id: "suck-up", name: "Suck Up!", game: "独立游戏", ai_core: 8, fun: 7, influence: "medium", influence_type: "buzz", status: "released", launch: "2024-05", desc: "用AI对话说服NPC开门的吸血鬼游戏，语音识别+LLM", source: "Steam评价" }
 ];
 
 // ========== Influence Size Mapping ==========
@@ -713,6 +736,7 @@ function renderProductTable(sortField, sortDir) {
       + '<td class="td-num"><span class="td-influence-badge" style="background:' + influenceBg[p.influence] + '">' + INFLUENCE_LABEL[p.influence] + '</span></td>'
       + '<td><span class="td-type-dot" style="background:' + TYPE_COLOR[p.influence_type] + '"></span>' + TYPE_LABEL[p.influence_type] + '</td>'
       + '<td><span class="td-status-badge" style="' + (p.status === 'released' ? 'color:#4CAF50' : 'color:#FF9800') + '">' + STATUS_LABEL[p.status] + '</span></td>'
+      + '<td style="white-space:nowrap;color:#78909C">' + (p.launch || '--') + '</td>'
       + '<td class="td-desc">' + p.desc + '</td>'
       + '<td class="td-comment">' + (lastComment ? '<span style="color:#78909C;font-size:11px">' + lastComment.time + '</span><br>' + escapeHtml(lastComment.text).substring(0, 80) + (lastComment.text.length > 80 ? '...' : '') : '<span style="color:#546E7A">暂无评论</span>') + '</td>'
       + '</tr>';
