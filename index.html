@@ -416,7 +416,7 @@ a:hover { text-decoration: underline; }
   <div class="view active" id="view-chart">
     <div class="chart-view-scroll">
       <div class="chart-subtitle">
-        X轴 = AI 核心程度（去掉AI玩法是否成立）&nbsp;&nbsp;|&nbsp;&nbsp;Y轴 = 玩法乐趣&nbsp;&nbsp;|&nbsp;&nbsp;气泡大小 = 综合影响力
+        X轴 = AI 核心程度（去掉AI玩法是否成立）&nbsp;&nbsp;|&nbsp;&nbsp;Y轴 = 讨论度&nbsp;&nbsp;|&nbsp;&nbsp;气泡大小 = 用户量
       </div>
       <div class="chart-container">
         <div id="bubbleChart"></div>
@@ -428,18 +428,13 @@ a:hover { text-decoration: underline; }
           <span class="legend-item"><span class="legend-dot red"></span>讨论度驱动</span>
           <span class="legend-item"><span class="legend-dot purple"></span>两者兼具</span>
         </div>
-        <div class="legend-group">
-          <span class="legend-label">边框</span>
-          <span class="legend-item"><span class="legend-dot solid"></span>已上线</span>
-          <span class="legend-item"><span class="legend-dot dashed"></span>Demo</span>
-        </div>
-        <div class="legend-group">
-          <span class="legend-label">大小</span>
-          <span class="legend-item"><span class="legend-dot size-s"></span>小</span>
-          <span class="legend-item"><span class="legend-dot size-m"></span>中</span>
-          <span class="legend-item"><span class="legend-dot size-l"></span>大</span>
-          <span class="legend-item"><span class="legend-dot size-h"></span>巨大</span>
-        </div>
+      <div class="legend-group">
+        <span class="legend-label">大小(用户量)</span>
+        <span class="legend-item"><span class="legend-dot size-s"></span>小</span>
+        <span class="legend-item"><span class="legend-dot size-m"></span>中</span>
+        <span class="legend-item"><span class="legend-dot size-l"></span>大</span>
+        <span class="legend-item"><span class="legend-dot size-h"></span>巨大</span>
+      </div>
       </div>
 
       <!-- ===== Product Table ===== -->
@@ -452,8 +447,8 @@ a:hover { text-decoration: underline; }
                 <th data-sort="name" data-type="string">产品名 <span class="sort-icon">⇅</span></th>
                 <th data-sort="game" data-type="string">所属游戏 <span class="sort-icon">⇅</span></th>
                 <th data-sort="ai_core" data-type="number">AI核心 <span class="sort-icon">⇅</span></th>
-                <th data-sort="fun" data-type="number">乐趣 <span class="sort-icon">⇅</span></th>
-                <th data-sort="influence" data-type="influence">影响力 <span class="sort-icon">⇅</span></th>
+                <th data-sort="buzz" data-type="number">讨论度 <span class="sort-icon">⇅</span></th>
+                <th data-sort="users" data-type="influence">用户量 <span class="sort-icon">⇅</span></th>
                 <th data-sort="influence_type" data-type="string">类型 <span class="sort-icon">⇅</span></th>
                 <th data-sort="status" data-type="string">状态 <span class="sort-icon">⇅</span></th>
                 <th data-sort="launch" data-type="string">上线时间 <span class="sort-icon">⇅</span></th>
@@ -514,50 +509,51 @@ a:hover { text-decoration: underline; }
 
 <script>
 // ========== Product Data ==========
+// ai_core: AI核心程度(0-10), buzz: 讨论度(0-10), users: 用户量(small/medium/large/huge)
+// influence_type: 颜色(user/buzz/both), status: released/demo, launch: 上线时间
 const PRODUCTS = [
-  { id: "xiamashen", name: "小马神", game: "和平精英", ai_core: 3, fun: 5, influence: "large", influence_type: "user", status: "released", launch: "2024-06", desc: "AI驱动的局内陪伴宠物，具备基础跟随和互动行为", source: "官方公告" },
-  { id: "bruce", name: "战犬布鲁斯", game: "和平精英", ai_core: 5, fun: 6, influence: "large", influence_type: "both", status: "released", launch: "2025-11", desc: "行业首个AI智能语音识别战犬，支持实时语音指挥战斗/救人", source: "官方公告" },
-  { id: "huaaotian", name: "花傲天", game: "和平精英", ai_core: 6, fun: 7, influence: "large", influence_type: "both", status: "released", launch: "2025-07", desc: "首位具备长期记忆的AI明星队友，继承华晨宇刚枪王人设", source: "官方公告" },
-  { id: "hpcommander", name: "和平指挥官", game: "和平精英", ai_core: 5, fun: 6, influence: "large", influence_type: "user", status: "released", launch: "2025-04", desc: "AI队友绝地指挥模式，玩家语音指挥AI队友执行战术", source: "官方公告" },
-  { id: "ai-jiaren", name: "AI假人", game: "超自然行动组", ai_core: 8, fun: 4, influence: "medium", influence_type: "buzz", status: "released", launch: "2025-12", desc: "基于AI的智能假人系统，能模拟真实玩家行为模式", source: "社媒讨论" },
-  { id: "facul", name: "F.A.C.U.L.", game: "暗区突围", ai_core: 7, fun: 6, influence: "medium", influence_type: "buzz", status: "demo", launch: "2024-08", desc: "全球首个语音指挥FPS AI队友，能听懂人话执行战术动作", source: "GDC/科隆展" },
-  { id: "wzcommander", name: "王者指挥官", game: "王者荣耀", ai_core: 4, fun: 5, influence: "large", influence_type: "user", status: "released", launch: "2025-04", desc: "AI驱动的指挥官模式，玩家一人操作五个英雄", source: "官方公告" },
-  { id: "wzlingbao", name: "王者灵宝", game: "王者荣耀", ai_core: 3, fun: 6, influence: "huge", influence_type: "both", status: "released", launch: "2025-05", desc: "AI陪玩灵宝，首日参与量破千万，能接梗抖机灵引爆社媒", source: "腾讯新闻" },
-  { id: "nshNPC", name: "逆水寒NPC", game: "逆水寒", ai_core: 6, fun: 5, influence: "large", influence_type: "both", status: "released", launch: "2023-08", desc: "国内首批接入LLM的游戏NPC，支持自由对话和情感交互", source: "官方公告" },
-  { id: "yjteammate", name: "永劫AI队友", game: "永劫无间", ai_core: 6, fun: 5, influence: "medium", influence_type: "buzz", status: "released", launch: "2024-06", desc: "全球首个游戏Copilot，多模态实时语音交流AI队友", source: "网易伏羲" },
-  { id: "deltaai", name: "三角洲AI助手", game: "三角洲行动", ai_core: 3, fun: 4, influence: "medium", influence_type: "user", status: "released", launch: "2024-10", desc: "FPS游戏内AI辅助系统，提供战术建议和局势分析", source: "官方公告" },
-  { id: "lolguardian", name: "LOL守护灵", game: "英雄联盟", ai_core: 2, fun: 3, influence: "large", influence_type: "user", status: "released", launch: "2024-09", desc: "AI驱动的局内辅助精灵，提供实时对线建议和装备推荐", source: "官方公告" },
-  { id: "backseat", name: "Backseat AI", game: "英雄联盟(第三方)", ai_core: 3, fun: 4, influence: "small", influence_type: "buzz", status: "released", launch: "2024-03", desc: "第三方AI语音辅助工具，实时提供购买建议和对线策略", source: "社区评价" },
-  { id: "doudou", name: "逗逗游戏伙伴", game: "全游戏通用", ai_core: 4, fun: 5, influence: "small", influence_type: "buzz", status: "released", launch: "2025-08", desc: "AI陪伴产品，VLM实时识别游戏画面提供语音陪伴和攻略", source: "知乎评测" },
-  { id: "inzoi", name: "inZOI", game: "Krafton", ai_core: 7, fun: 7, influence: "large", influence_type: "both", status: "released", launch: "2025-03", desc: "韩国版模拟人生，AI驱动400+心理活动让NPC自主生活", source: "IGN/Steam" },
-  { id: "aitaikongsha", name: "AI太空杀", game: "独立游戏", ai_core: 8, fun: 6, influence: "medium", influence_type: "buzz", status: "released", launch: "2024-11", desc: "太空狼人杀+AI玩家，AI能模拟人类欺骗和推理行为", source: "Steam评价" },
-  { id: "maggie", name: "麦琪的花园", game: "独立游戏", ai_core: 7, fun: 5, influence: "small", influence_type: "buzz", status: "released", launch: "2025-06", desc: "AI驱动的种植+对话游戏，植物拥有AI个性可自由交流", source: "Steam评价" },
-  { id: "farplanet", name: "遥远行星", game: "独立游戏", ai_core: 8, fun: 4, influence: "small", influence_type: "buzz", status: "released", launch: "2025-04", desc: "AI驱动的太空探索叙事游戏，全程AI生成对话和剧情分支", source: "Steam评价" },
-  { id: "aivilization", name: "Aivilization", game: "港科大", ai_core: 9, fun: 6, influence: "medium", influence_type: "buzz", status: "released", launch: "2025-08", desc: "2万+AI居民的虚拟小镇，AI具备MBTI人格自主社交生活", source: "港科大/知乎" },
-  { id: "stanford", name: "斯坦福小镇", game: "Stanford/HF", ai_core: 9, fun: 4, influence: "medium", influence_type: "buzz", status: "demo", launch: "2023-04", desc: "25个AI Agent组成的虚拟小镇实验，开创性AI社会模拟研究", source: "论文" },
-  { id: "alterabots", name: "Altera Bots", game: "Minecraft", ai_core: 8, fun: 5, influence: "small", influence_type: "buzz", status: "demo", launch: "2024-12", desc: "MIT团队在Minecraft中创建的AI Agent群体，能自主协作生存", source: "MIT研究" },
-  { id: "whisper-star", name: "星之低语", game: "独立游戏", ai_core: 9, fun: 5, influence: "medium", influence_type: "buzz", status: "released", launch: "2025-08", desc: "米哈游蔡浩宇主导的AI互动叙事游戏，第一人称对话革命", source: "Steam评价" },
-  { id: "1001nights", name: "1001夜", game: "独立游戏", ai_core: 8, fun: 5, influence: "small", influence_type: "buzz", status: "released", launch: "2025-03", desc: "AI驱动的一千零一夜故事生成游戏，每次游玩故事都不同", source: "Steam评价" },
-  { id: "eve-ai", name: "EVE", game: "独立产品", ai_core: 7, fun: 6, influence: "medium", influence_type: "buzz", status: "released", launch: "2025-06", desc: "首款3D AI伴侣，能送外卖点奶茶，跨次元壁互动引爆话题", source: "知乎/社媒" },
-  { id: "ai-dungeon", name: "AI Dungeon", game: "AI Dungeon", ai_core: 9, fun: 6, influence: "medium", influence_type: "both", status: "released", launch: "2019-12", desc: "完全由GPT驱动的文字冒险游戏，AI实时生成剧情", source: "Steam评价" },
-  { id: "yandere-cat", name: "病娇猫娘女友", game: "独立游戏", ai_core: 7, fun: 5, influence: "small", influence_type: "buzz", status: "released", launch: "2024-08", desc: "基于LLM的AI角色扮演互动游戏，主打情感陪伴", source: "TapTap评价" },
-  { id: "ai-spellcraft", name: "AI Spellcraft", game: "独立游戏", ai_core: 8, fun: 5, influence: "small", influence_type: "buzz", status: "released", launch: "2024-10", desc: "使用AI咒语生成机制的策略对战游戏", source: "Steam评价" },
-  { id: "ai-town", name: "AI Town", game: "Hugging Face", ai_core: 9, fun: 4, influence: "small", influence_type: "buzz", status: "demo", launch: "2023-08", desc: "基于LLM的虚拟小镇模拟，AI居民自主社交", source: "HuggingFace" },
-  { id: "neuro-sama", name: "Neuro-sama", game: "Twitch", ai_core: 8, fun: 7, influence: "large", influence_type: "buzz", status: "released", launch: "2022-12", desc: "AI虚拟主播，融合视觉识别+LLM+TTS的复合互动体", source: "Twitch数据" },
-  { id: "suck-up", name: "Suck Up!", game: "独立游戏", ai_core: 8, fun: 7, influence: "medium", influence_type: "buzz", status: "released", launch: "2024-05", desc: "用AI对话说服NPC开门的吸血鬼游戏，语音识别+LLM", source: "Steam评价" }
+  { id: "xiamashen", name: "小马神", game: "和平精英", ai_core: 3, buzz: 3, users: "huge", influence_type: "user", status: "released", launch: "2024-06", desc: "AI驱动的局内陪伴宠物，具备基础跟随和互动行为", source: "官方公告" },
+  { id: "bruce", name: "战犬布鲁斯", game: "和平精英", ai_core: 5, buzz: 6, users: "huge", influence_type: "both", status: "released", launch: "2025-11", desc: "行业首个AI智能语音识别战犬，支持实时语音指挥战斗/救人", source: "官方公告" },
+  { id: "huaaotian", name: "花傲天", game: "和平精英", ai_core: 6, buzz: 8, users: "large", influence_type: "both", status: "released", launch: "2025-07", desc: "首位具备长期记忆的AI明星队友，继承华晨宇刚枪王人设", source: "官方公告" },
+  { id: "hpcommander", name: "和平指挥官", game: "和平精英", ai_core: 5, buzz: 5, users: "large", influence_type: "user", status: "released", launch: "2025-04", desc: "AI队友绝地指挥模式，玩家语音指挥AI队友执行战术", source: "官方公告" },
+  { id: "ai-jiaren", name: "AI假人", game: "超自然行动组", ai_core: 8, buzz: 8, users: "small", influence_type: "buzz", status: "released", launch: "2025-12", desc: "基于AI的智能假人系统，能模拟真实玩家行为模式", source: "社媒讨论" },
+  { id: "facul", name: "F.A.C.U.L.", game: "暗区突围", ai_core: 7, buzz: 6, users: "small", influence_type: "buzz", status: "demo", launch: "2024-08", desc: "全球首个语音指挥FPS AI队友，能听懂人话执行战术动作", source: "GDC/科隆展" },
+  { id: "wzcommander", name: "王者指挥官", game: "王者荣耀", ai_core: 4, buzz: 4, users: "huge", influence_type: "user", status: "released", launch: "2025-04", desc: "AI驱动的指挥官模式，玩家一人操作五个英雄", source: "官方公告" },
+  { id: "wzlingbao", name: "王者灵宝", game: "王者荣耀", ai_core: 3, buzz: 9, users: "huge", influence_type: "both", status: "released", launch: "2025-05", desc: "AI陪玩灵宝，首日参与量破千万，能接梗抖机灵引爆社媒", source: "腾讯新闻" },
+  { id: "nshNPC", name: "逆水寒NPC", game: "逆水寒", ai_core: 6, buzz: 7, users: "large", influence_type: "both", status: "released", launch: "2023-08", desc: "国内首批接入LLM的游戏NPC，支持自由对话和情感交互", source: "官方公告" },
+  { id: "yjteammate", name: "永劫AI队友", game: "永劫无间", ai_core: 6, buzz: 5, users: "medium", influence_type: "buzz", status: "released", launch: "2024-06", desc: "全球首个游戏Copilot，多模态实时语音交流AI队友", source: "网易伏羲" },
+  { id: "deltaai", name: "三角洲AI助手", game: "三角洲行动", ai_core: 3, buzz: 2, users: "medium", influence_type: "user", status: "released", launch: "2024-10", desc: "FPS游戏内AI辅助系统，提供战术建议和局势分析", source: "官方公告" },
+  { id: "lolguardian", name: "LOL守护灵", game: "英雄联盟", ai_core: 2, buzz: 3, users: "huge", influence_type: "user", status: "released", launch: "2024-09", desc: "AI驱动的局内辅助精灵，提供实时对线建议和装备推荐", source: "官方公告" },
+  { id: "backseat", name: "Backseat AI", game: "英雄联盟(第三方)", ai_core: 3, buzz: 3, users: "small", influence_type: "buzz", status: "released", launch: "2024-03", desc: "第三方AI语音辅助工具，实时提供购买建议和对线策略", source: "社区评价" },
+  { id: "doudou", name: "逗逗游戏伙伴", game: "全游戏通用", ai_core: 4, buzz: 4, users: "small", influence_type: "buzz", status: "released", launch: "2025-08", desc: "AI陪伴产品，VLM实时识别游戏画面提供语音陪伴和攻略", source: "知乎评测" },
+  { id: "inzoi", name: "inZOI", game: "Krafton", ai_core: 7, buzz: 8, users: "large", influence_type: "both", status: "released", launch: "2025-03", desc: "韩国版模拟人生，AI驱动400+心理活动让NPC自主生活", source: "IGN/Steam" },
+  { id: "aitaikongsha", name: "AI太空杀", game: "独立游戏", ai_core: 8, buzz: 5, users: "small", influence_type: "buzz", status: "released", launch: "2024-11", desc: "太空狼人杀+AI玩家，AI能模拟人类欺骗和推理行为", source: "Steam评价" },
+  { id: "maggie", name: "麦琪的花园", game: "独立游戏", ai_core: 7, buzz: 3, users: "small", influence_type: "buzz", status: "released", launch: "2025-06", desc: "AI驱动的种植+对话游戏，植物拥有AI个性可自由交流", source: "Steam评价" },
+  { id: "farplanet", name: "遥远行星", game: "独立游戏", ai_core: 8, buzz: 2, users: "small", influence_type: "buzz", status: "released", launch: "2025-04", desc: "AI驱动的太空探索叙事游戏，全程AI生成对话和剧情分支", source: "Steam评价" },
+  { id: "aivilization", name: "Aivilization", game: "港科大", ai_core: 9, buzz: 7, users: "medium", influence_type: "buzz", status: "released", launch: "2025-08", desc: "2万+AI居民的虚拟小镇，AI具备MBTI人格自主社交生活", source: "港科大/知乎" },
+  { id: "stanford", name: "斯坦福小镇", game: "Stanford/HF", ai_core: 9, buzz: 8, users: "small", influence_type: "buzz", status: "demo", launch: "2023-04", desc: "25个AI Agent组成的虚拟小镇实验，开创性AI社会模拟研究", source: "论文" },
+  { id: "alterabots", name: "Altera Bots", game: "Minecraft", ai_core: 8, buzz: 4, users: "small", influence_type: "buzz", status: "demo", launch: "2024-12", desc: "MIT团队在Minecraft中创建的AI Agent群体，能自主协作生存", source: "MIT研究" },
+  { id: "whisper-star", name: "星之低语", game: "独立游戏", ai_core: 9, buzz: 7, users: "small", influence_type: "buzz", status: "released", launch: "2025-08", desc: "米哈游蔡浩宇主导的AI互动叙事游戏，第一人称对话革命", source: "Steam评价" },
+  { id: "1001nights", name: "1001夜", game: "独立游戏", ai_core: 8, buzz: 3, users: "small", influence_type: "buzz", status: "released", launch: "2025-03", desc: "AI驱动的一千零一夜故事生成游戏，每次游玩故事都不同", source: "Steam评价" },
+  { id: "eve-ai", name: "EVE", game: "独立产品", ai_core: 7, buzz: 7, users: "medium", influence_type: "buzz", status: "released", launch: "2025-06", desc: "首款3D AI伴侣，能送外卖点奶茶，跨次元壁互动引爆话题", source: "知乎/社媒" },
+  { id: "ai-dungeon", name: "AI Dungeon", game: "AI Dungeon", ai_core: 9, buzz: 6, users: "medium", influence_type: "both", status: "released", launch: "2019-12", desc: "完全由GPT驱动的文字冒险游戏，AI实时生成剧情", source: "Steam评价" },
+  { id: "yandere-cat", name: "病娇猫娘女友", game: "独立游戏", ai_core: 7, buzz: 4, users: "small", influence_type: "buzz", status: "released", launch: "2024-08", desc: "基于LLM的AI角色扮演互动游戏，主打情感陪伴", source: "TapTap评价" },
+  { id: "ai-spellcraft", name: "AI Spellcraft", game: "独立游戏", ai_core: 8, buzz: 4, users: "small", influence_type: "buzz", status: "released", launch: "2024-10", desc: "使用AI咒语生成机制的策略对战游戏", source: "Steam评价" },
+  { id: "ai-town", name: "AI Town", game: "Hugging Face", ai_core: 9, buzz: 5, users: "small", influence_type: "buzz", status: "demo", launch: "2023-08", desc: "基于LLM的虚拟小镇模拟，AI居民自主社交", source: "HuggingFace" },
+  { id: "neuro-sama", name: "Neuro-sama", game: "Twitch", ai_core: 8, buzz: 9, users: "large", influence_type: "buzz", status: "released", launch: "2022-12", desc: "AI虚拟主播，融合视觉识别+LLM+TTS的复合互动体", source: "Twitch数据" },
+  { id: "suck-up", name: "Suck Up!", game: "独立游戏", ai_core: 8, buzz: 7, users: "medium", influence_type: "buzz", status: "released", launch: "2024-05", desc: "用AI对话说服NPC开门的吸血鬼游戏，语音识别+LLM", source: "Steam评价" }
 ];
 
-// ========== Influence Size Mapping ==========
-// Base sizes at reference width 1200px; will be scaled dynamically
-const INFLUENCE_BASE = { small: 22, medium: 38, large: 58, huge: 80 };
-function getInfluenceSize(influence) {
+// ========== Users Size Mapping ==========
+const USERS_BASE = { small: 22, medium: 38, large: 58, huge: 80 };
+function getUsersSize(users) {
   const chartDom = document.getElementById('bubbleChart');
   const w = chartDom ? chartDom.clientWidth : 1200;
   const scale = Math.max(0.4, Math.min(1.2, w / 1200));
-  return Math.round(INFLUENCE_BASE[influence] * scale);
+  return Math.round(USERS_BASE[users] * scale);
 }
-const INFLUENCE_LABEL = { small: "小", medium: "中", large: "大", huge: "巨大" };
-const INFLUENCE_ORDER = { small: 1, medium: 2, large: 3, huge: 4 };
+const USERS_LABEL = { small: "小", medium: "中", large: "大", huge: "巨大" };
+const USERS_ORDER = { small: 1, medium: 2, large: 3, huge: 4 };
 
 // ========== Color Mapping ==========
 const TYPE_COLOR = { user: "#4285F4", buzz: "#EA4335", both: "#9B59B6" };
@@ -574,7 +570,7 @@ function saveComments(data) { localStorage.setItem(COMMENTS_KEY, JSON.stringify(
 
 // ========== Overlap Resolution ==========
 function resolveOverlaps(products) {
-  const coords = products.map(p => ({ x: p.ai_core, y: p.fun, ox: 0, oy: 0 }));
+  const coords = products.map(p => ({ x: p.ai_core, y: p.buzz, ox: 0, oy: 0 }));
   const threshold = 0.8; // minimum distance in data units
   // Simple iterative push-apart
   for (let iter = 0; iter < 8; iter++) {
@@ -620,14 +616,14 @@ function initChart() {
 
   const seriesData = PRODUCTS.map((p, i) => ({
     name: p.name,
-    value: [p.ai_core + offsets[i].ox, p.fun + offsets[i].oy],
-    symbolSize: getInfluenceSize(p.influence),
+    value: [p.ai_core + offsets[i].ox, p.buzz + offsets[i].oy],
+    symbolSize: getUsersSize(p.users),
     itemStyle: {
       color: TYPE_COLOR[p.influence_type],
       opacity: 0.85,
       borderColor: TYPE_COLOR[p.influence_type],
-      borderWidth: 3,
-      borderType: p.status === 'demo' ? 'dashed' : 'solid'
+      borderWidth: 2,
+      borderType: 'solid'
     },
     _product: p
   }));
@@ -650,7 +646,7 @@ function initChart() {
       axisTick: { show: false }
     },
     yAxis: {
-      name: '玩法乐趣',
+      name: '讨论度',
       nameLocation: 'center', nameGap: 40,
       nameTextStyle: { color: '#78909C', fontSize: 13 },
       min: 0, max: 10,
@@ -675,8 +671,8 @@ function initChart() {
         html += '<div style="font-size:12px;color:#B0BEC5;margin-bottom:8px">' + p.desc + '</div>';
         html += '<div style="display:flex;gap:12px;font-size:11px;color:#78909C">';
         html += '<span>AI核心: <b style="color:#fff">' + p.ai_core + '</b></span>';
-        html += '<span>乐趣: <b style="color:#fff">' + p.fun + '</b></span>';
-        html += '<span>影响力: <b style="color:#fff">' + INFLUENCE_LABEL[p.influence] + '</b></span>';
+        html += '<span>讨论度: <b style="color:#fff">' + p.buzz + '</b></span>';
+        html += '<span>用户量: <b style="color:#fff">' + USERS_LABEL[p.users] + '</b></span>';
         html += '</div>';
         if (lastComment) {
           html += '<div style="margin-top:8px;padding-top:8px;border-top:1px solid #243447;font-size:12px;color:#78909C">';
@@ -713,7 +709,7 @@ function initChart() {
     chart.resize();
     // Recalculate bubble sizes on resize
     const newData = chart.getOption().series[0].data.map((d, i) => {
-      d.symbolSize = getInfluenceSize(PRODUCTS[i].influence);
+      d.symbolSize = getUsersSize(PRODUCTS[i].users);
       return d;
     });
     chart.setOption({ series: [{ data: newData }] });
@@ -732,8 +728,8 @@ function renderProductTable(sortField, sortDir) {
   if (sortField) {
     sorted.sort((a, b) => {
       let va, vb;
-      if (sortField === 'influence') {
-        va = INFLUENCE_ORDER[a.influence]; vb = INFLUENCE_ORDER[b.influence];
+      if (sortField === 'users') {
+        va = USERS_ORDER[a.users]; vb = USERS_ORDER[b.users];
       } else if (typeof a[sortField] === 'number') {
         va = a[sortField]; vb = b[sortField];
       } else {
@@ -752,8 +748,8 @@ function renderProductTable(sortField, sortDir) {
       + '<td class="td-name" onclick="openCommentPanel(PRODUCTS.find(x=>x.id===\'' + p.id + '\'))">' + p.name + '</td>'
       + '<td class="td-game">' + p.game + '</td>'
       + '<td class="td-num">' + p.ai_core + '</td>'
-      + '<td class="td-num">' + p.fun + '</td>'
-      + '<td class="td-num"><span class="td-influence-badge" style="background:' + influenceBg[p.influence] + '">' + INFLUENCE_LABEL[p.influence] + '</span></td>'
+      + '<td class="td-num">' + p.buzz + '</td>'
+      + '<td class="td-num"><span class="td-influence-badge" style="background:' + influenceBg[p.users] + '">' + USERS_LABEL[p.users] + '</span></td>'
       + '<td><span class="td-type-dot" style="background:' + TYPE_COLOR[p.influence_type] + '"></span>' + TYPE_LABEL[p.influence_type] + '</td>'
       + '<td><span class="td-status-badge" style="' + (p.status === 'released' ? 'color:#4CAF50' : 'color:#FF9800') + '">' + STATUS_LABEL[p.status] + '</span></td>'
       + '<td style="white-space:nowrap;color:#78909C">' + (p.launch || '--') + '</td>'
@@ -793,8 +789,8 @@ function openCommentPanel(product) {
 
   const scoresHtml = [
     { label: 'AI核心', value: product.ai_core, color: '#4285F4' },
-    { label: '乐趣', value: product.fun, color: '#4CAF50' },
-    { label: '影响力', value: INFLUENCE_LABEL[product.influence], color: '#FF9800' },
+    { label: '讨论度', value: product.buzz, color: '#FF9800' },
+    { label: '用户量', value: USERS_LABEL[product.users], color: '#4CAF50' },
     { label: '类型', value: TYPE_LABEL[product.influence_type], color: TYPE_COLOR[product.influence_type] },
     { label: '状态', value: STATUS_LABEL[product.status], color: product.status === 'released' ? '#4CAF50' : '#FF9800' }
   ].map(s =>
