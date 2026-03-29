@@ -636,8 +636,8 @@ function initChart() {
     backgroundColor: 'transparent',
     grid: { left: 60, right: 40, top: 40, bottom: 60 },
     dataZoom: [
-      { type: 'inside', xAxisIndex: 0, filterMode: 'none', zoomOnMouseWheel: 'shift', minSpan: 15, maxSpan: 100, throttle: 150 },
-      { type: 'inside', yAxisIndex: 0, filterMode: 'none', zoomOnMouseWheel: 'shift', minSpan: 15, maxSpan: 100, throttle: 150 }
+      { type: 'inside', xAxisIndex: 0, filterMode: 'none', zoomOnMouseWheel: true, minSpan: 30, maxSpan: 100, throttle: 400 },
+      { type: 'inside', yAxisIndex: 0, filterMode: 'none', zoomOnMouseWheel: true, minSpan: 30, maxSpan: 100, throttle: 400 }
     ],
     xAxis: {
       name: 'AI 核心程度',
