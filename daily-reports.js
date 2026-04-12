@@ -180,8 +180,8 @@ window.DAILY_REPORTS = [
 
 > 💡 **产品库更新建议**：建议将以下新发现加入「AI玩法产品库.md」：Sett（AI Agent游戏营销自动化平台）、SOON（AI全流程游戏生成平台）、BloxBot/Roblox Studio AI助手（UGC平台AI辅助创作工具）
 
-*本日报由 WorkBuddy Automation 自动生成*\` },
-{ date: "2026-04-02", content: \`# AI 游戏创新日报 - 2026-04-02
+*本日报由 WorkBuddy Automation 自动生成*` },
+{ date: "2026-04-02", content: `# AI 游戏创新日报 - 2026-04-02
 
 > 自动生成 | 数据来源：全网中英文搜索 | 聚焦游戏界生成式AI创新动态
 
@@ -405,8 +405,8 @@ window.DAILY_REPORTS = [
 
 > 💡 **产品库更新建议**：建议关注Snapdragon Game AI SDK（高通端侧AI游戏开发工具包）和极逸SOON（国产AI数值引擎+全链路游戏开发平台）。同时密切跟踪4月14日GPT-6正式发布及DeepSeek V4对游戏AI Agent能力的实际提升效果。
 
-*本日报由 WorkBuddy Automation 自动生成*\` },
-{ date: "2026-04-10", content: \`# AI 游戏创新日报 - 2026-04-10
+*本日报由 WorkBuddy Automation 自动生成*` },
+{ date: "2026-04-10", content: `# AI 游戏创新日报 - 2026-04-10
 
 > 自动生成 | 数据来源：全网中英文搜索 | 聚焦游戏界生成式AI创新动态
 
@@ -450,8 +450,8 @@ window.DAILY_REPORTS = [
 
 > 💡 **产品库更新建议**：建议将以下新发现加入「AI玩法产品库.md」：Overdare Studio Agent（Krafton UE5 AI-UGC平台）、State of AI in Gaming 2026报告（UNLV+KPMG全球基准）。同时密切跟踪4月14日GPT-6 & DeepSeek V4发布后对游戏AI Agent能力的实际提升效果。
 
-*本日报由 WorkBuddy Automation 自动生成*\` },
-{ date: "2026-04-11", content: \`# AI 游戏创新日报 - 2026-04-11
+*本日报由 WorkBuddy Automation 自动生成*` },
+{ date: "2026-04-11", content: `# AI 游戏创新日报 - 2026-04-11
 
 > 自动生成 | 数据来源：全网中英文搜索 | 聚焦游戏界生成式AI创新动态
 
@@ -495,8 +495,8 @@ window.DAILY_REPORTS = [
 
 > 💡 **产品库更新建议**：建议将以下新发现加入「AI玩法产品库.md」：《代号：黑箱》（Meshy Labs AI原生游戏，"AI游戏机制大模型"驱动的武器合成玩法）、《王者荣耀世界》AI NPC系统（腾讯旗舰级AI+开放世界产品）。同时密切跟踪4月14日GPT-6 & DeepSeek V4发布后对游戏AI Agent能力的实际提升效果。
 
-*本日报由 WorkBuddy Automation 自动生成*\` },
-{ date: "2026-04-12", content: \`# AI 游戏创新日报 - 2026-04-12
+*本日报由 WorkBuddy Automation 自动生成*` },
+{ date: "2026-04-12", content: `# AI 游戏创新日报 - 2026-04-12
 
 > 自动生成 | 数据来源：全网中英文搜索 | 聚焦游戏界生成式AI创新动态
 
@@ -540,5 +540,5 @@ window.DAILY_REPORTS = [
 
 > 💡 **产品库更新建议**：建议关注Keywords Studios的500款AI工具测试结论（筛选可靠工具的重要参考）、Embark Studios的AI辅助3A开发范式（策划核心工作AI化的标杆案例）。同时4月14日GPT-6+DeepSeek V4双发布后，务必第一时间评估对游戏AI Agent能力的实际提升。
 
-*本日报由 WorkBuddy Automation 自动生成*\` }
+*本日报由 WorkBuddy Automation 自动生成*` }
 ];
