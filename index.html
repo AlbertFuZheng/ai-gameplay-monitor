@@ -463,19 +463,24 @@ a:hover { text-decoration: underline; }
   .chart-legend { gap: 12px; padding: 8px 12px 10px; }
   .legend-group { gap: 8px; }
 
-  /* --- Product Table mobile: hide less-important columns, widen desc --- */
+  /* --- Product Table mobile: compact layout --- */
   .product-table-section { padding: 0 8px 24px; }
   .product-table { min-width: unset; font-size: 12px; }
-  .product-table th, .product-table td { padding: 8px 6px; }
-  .product-table .td-game { display: none; }
-  .product-table th[data-sort="game"] { display: none; }
+  .product-table th, .product-table td { padding: 8px 6px; white-space: nowrap; }
+  /* Hide columns: game, buzz, users, comment */
+  .product-table .td-game,
+  .product-table .td-buzz,
+  .product-table .td-users,
   .product-table .td-comment { display: none; }
+  .product-table th[data-sort="game"],
+  .product-table th[data-sort="buzz"],
+  .product-table th[data-sort="users"],
   .product-table th:last-child { display: none; }
-  .product-table .td-desc { min-width: 250px; max-width: 320px;
+  /* Desc column: allow wrap, clamp to 2 lines */
+  .product-table .td-desc { min-width: 250px; max-width: 320px; white-space: normal;
     display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
     overflow: hidden; text-overflow: ellipsis;
   }
-  .product-table .td-name { white-space: normal; }
 
   /* --- Report view column layout --- */
   #view-report { flex-direction: column; }
@@ -990,8 +995,8 @@ function renderProductTable(sortField, sortDir) {
       + '<td class="td-name" data-label="产品名" onclick="openCommentPanel(PRODUCTS.find(x=>x.id===\'' + p.id + '\'))">' + p.name + '</td>'
       + '<td class="td-game" data-label="所属游戏">' + p.game + '</td>'
       + '<td class="td-num" data-label="AI核心">' + p.ai_core + '</td>'
-      + '<td class="td-num" data-label="讨论度">' + p.buzz + '</td>'
-      + '<td class="td-num" data-label="用户量"><span class="td-influence-badge" style="background:' + influenceBg[p.users] + '">' + USERS_LABEL[p.users] + '</span></td>'
+      + '<td class="td-num td-buzz" data-label="讨论度">' + p.buzz + '</td>'
+      + '<td class="td-num td-users" data-label="用户量"><span class="td-influence-badge" style="background:' + influenceBg[p.users] + '">' + USERS_LABEL[p.users] + '</span></td>'
       + '<td data-label="分类"><span class="td-type-dot" style="background:' + CAT_COLOR[p.category] + '"></span>' + CAT_LABEL[p.category] + '</td>'
       + '<td data-label="状态"><span class="td-status-badge" style="' + (p.status === 'released' ? 'color:#4CAF50' : 'color:#FF9800') + '">' + STATUS_LABEL[p.status] + '</span></td>'
       + '<td data-label="上线时间" style="white-space:nowrap;color:#78909C">' + (p.launch || '--') + '</td>'
