@@ -432,12 +432,67 @@ a:hover { text-decoration: underline; }
   .nav-tab { padding: 6px 14px; font-size: 13px; }
   .nav-update { display: none; }
   .report-sidebar { display: none; }
-  .report-mobile-select { display: block; }
+  .report-mobile-select { display: none; }
+  .report-mobile-nav { display: flex; }
   .report-content { padding: 16px; }
   .chart-subtitle { font-size: 12px; padding: 8px 12px 2px; }
   .chart-legend { gap: 12px; padding: 8px 12px 10px; }
   .legend-group { gap: 8px; }
   .report-view { flex-direction: column; }
+
+  /* --- Product Table → Card Layout --- */
+  .product-table-section { padding: 0 12px 24px; }
+  .product-table { min-width: unset; }
+  .product-table thead { display: none; }
+  .product-table tbody tr {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 4px 12px; padding: 12px; margin-bottom: 8px;
+    background: var(--bg-secondary); border-radius: 10px;
+    border: 1px solid var(--bg-tertiary);
+  }
+  .product-table td {
+    padding: 2px 0; border: none; font-size: 12px;
+  }
+  .product-table td::before {
+    content: attr(data-label);
+    display: block; font-size: 10px; color: var(--text-muted);
+    font-weight: 600; margin-bottom: 1px; text-transform: uppercase;
+  }
+  .product-table .td-name {
+    grid-column: 1 / -1; font-size: 14px; white-space: normal;
+  }
+  .product-table .td-name::before { display: none; }
+  .product-table .td-desc {
+    grid-column: 1 / -1; max-width: none;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+    overflow: hidden; text-overflow: ellipsis;
+  }
+  .product-table .td-comment { display: none; }
+  .product-table .td-game { white-space: normal; }
+}
+
+/* --- Mobile Date Navigation Bar --- */
+.report-mobile-nav {
+  display: none;
+  overflow-x: auto; -webkit-overflow-scrolling: touch;
+  gap: 6px; padding: 10px 12px;
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--bg-tertiary);
+  flex-shrink: 0;
+}
+.report-mobile-nav::-webkit-scrollbar { display: none; }
+.report-mobile-nav { scrollbar-width: none; }
+.date-pill {
+  flex-shrink: 0; padding: 6px 14px;
+  border-radius: 20px; font-size: 12px; white-space: nowrap;
+  color: var(--text-muted); background: var(--bg-tertiary);
+  border: 1px solid transparent; cursor: pointer;
+  transition: all 0.15s; user-select: none;
+}
+.date-pill:hover { color: var(--text-secondary); background: rgba(66,133,244,0.1); }
+.date-pill.active {
+  color: #fff; background: var(--blue);
+  border-color: var(--blue); font-weight: 600;
 }
 </style>
 </head>
@@ -507,6 +562,7 @@ a:hover { text-decoration: underline; }
         <option value="">选择日期...</option>
       </select>
     </div>
+    <div class="report-mobile-nav" id="reportMobileNav"></div>
     <div class="report-sidebar" id="reportSidebar">
       <div class="report-sidebar-title">📅 日报列表</div>
     </div>
@@ -945,16 +1001,16 @@ function renderProductTable(sortField, sortDir) {
     const lastComment = pComments.length > 0 ? pComments[pComments.length - 1] : null;
     const influenceBg = { small: 'rgba(120,144,156,0.2)', medium: 'rgba(120,144,156,0.3)', large: 'rgba(66,133,244,0.2)', huge: 'rgba(66,133,244,0.3)' };
     return '<tr>'
-      + '<td class="td-name" onclick="openCommentPanel(PRODUCTS.find(x=>x.id===\'' + p.id + '\'))">' + p.name + '</td>'
-      + '<td class="td-game">' + p.game + '</td>'
-      + '<td class="td-num">' + p.ai_core + '</td>'
-      + '<td class="td-num">' + p.buzz + '</td>'
-      + '<td class="td-num"><span class="td-influence-badge" style="background:' + influenceBg[p.users] + '">' + USERS_LABEL[p.users] + '</span></td>'
-      + '<td><span class="td-type-dot" style="background:' + CAT_COLOR[p.category] + '"></span>' + CAT_LABEL[p.category] + '</td>'
-      + '<td><span class="td-status-badge" style="' + (p.status === 'released' ? 'color:#4CAF50' : 'color:#FF9800') + '">' + STATUS_LABEL[p.status] + '</span></td>'
-      + '<td style="white-space:nowrap;color:#78909C">' + (p.launch || '--') + '</td>'
-      + '<td class="td-desc">' + p.desc + '</td>'
-      + '<td class="td-comment">' + (lastComment ? '<span style="color:#78909C;font-size:11px">' + lastComment.time + '</span><br>' + escapeHtml(lastComment.text).substring(0, 80) + (lastComment.text.length > 80 ? '...' : '') : '<span style="color:#546E7A">暂无评论</span>') + '</td>'
+      + '<td class="td-name" data-label="产品名" onclick="openCommentPanel(PRODUCTS.find(x=>x.id===\'' + p.id + '\'))">' + p.name + '</td>'
+      + '<td class="td-game" data-label="所属游戏">' + p.game + '</td>'
+      + '<td class="td-num" data-label="AI核心">' + p.ai_core + '</td>'
+      + '<td class="td-num" data-label="讨论度">' + p.buzz + '</td>'
+      + '<td class="td-num" data-label="用户量"><span class="td-influence-badge" style="background:' + influenceBg[p.users] + '">' + USERS_LABEL[p.users] + '</span></td>'
+      + '<td data-label="分类"><span class="td-type-dot" style="background:' + CAT_COLOR[p.category] + '"></span>' + CAT_LABEL[p.category] + '</td>'
+      + '<td data-label="状态"><span class="td-status-badge" style="' + (p.status === 'released' ? 'color:#4CAF50' : 'color:#FF9800') + '">' + STATUS_LABEL[p.status] + '</span></td>'
+      + '<td data-label="上线时间" style="white-space:nowrap;color:#78909C">' + (p.launch || '--') + '</td>'
+      + '<td class="td-desc" data-label="简介">' + p.desc + '</td>'
+      + '<td class="td-comment" data-label="最新评论">' + (lastComment ? '<span style="color:#78909C;font-size:11px">' + lastComment.time + '</span><br>' + escapeHtml(lastComment.text).substring(0, 80) + (lastComment.text.length > 80 ? '...' : '') : '<span style="color:#546E7A">暂无评论</span>') + '</td>'
       + '</tr>';
   }).join('');
 
@@ -1094,6 +1150,7 @@ function initReports() {
   const reports = (window.DAILY_REPORTS || []).slice().sort((a, b) => b.date.localeCompare(a.date));
   const sidebar = document.getElementById('reportSidebar');
   const select = document.getElementById('reportMobileSelect');
+  const mobileNav = document.getElementById('reportMobileNav');
 
   if (reports.length === 0) {
     document.getElementById('reportContent').innerHTML =
@@ -1123,6 +1180,14 @@ function initReports() {
     opt.textContent = r.date + ' 周' + weekdays[date.getDay()];
     if (i === 0) opt.selected = true;
     select.appendChild(opt);
+
+    // Mobile date pill
+    const pill = document.createElement('div');
+    pill.className = 'date-pill' + (i === 0 ? ' active' : '');
+    pill.textContent = label;
+    pill.dataset.date = r.date;
+    pill.onclick = function() { selectReport(r.date); };
+    mobileNav.appendChild(pill);
   });
   selectReport(reports[0].date);
 }
@@ -1247,6 +1312,13 @@ function selectReport(date) {
     item.classList.toggle('active', item.dataset.date === date);
   });
   document.getElementById('reportMobileSelect').value = date;
+  // Sync mobile date nav pills
+  document.querySelectorAll('.date-pill').forEach(function(pill) {
+    pill.classList.toggle('active', pill.dataset.date === date);
+    if (pill.dataset.date === date) {
+      pill.scrollIntoView({ inline: 'center', block: 'nearest', behavior: 'smooth' });
+    }
+  });
 }
 
 // ========== Init ==========
