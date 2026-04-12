@@ -551,6 +551,47 @@ a:hover { text-decoration: underline; }
 // ai_core: AI核心程度(0-10), buzz: 讨论度(0-10), users: 用户量(small/medium/large/huge)
 // influence_type: 颜色(user/buzz/both), status: released/demo, launch: 上线时间
 const PRODUCTS = [
+  { id: "wzworld-ainpc", image: "", name: "王者荣耀世界AI NPC", game: "王者荣耀世界", ai_core: 7, buzz: 9, users: "large", category: "addon", status: "released", launch: "2026-04", desc: "腾讯天美旗舰开放世界ARPG，UE5+AI交互系统驱动动态NPC行为与策略协作", source: "腾讯新闻",
+    links: [
+      { title: "《王者荣耀世界》正式上线：AI交互系统落地亿级玩家", url: "https://www.eeo.com.cn/2026/0403/825947.shtml", summary: "腾讯天美5年研发的AI+开放世界ARPG，GDC连续两年展示AI NPC技术" }
+    ]},
+  { id: "meshy-blackbox", image: "", name: "代号：黑箱", game: "Meshy Labs", ai_core: 9, buzz: 6, users: "small", category: "native", status: "demo", launch: "2026-04", desc: "Meshy AI创始人胡渊鸣的AI原生游戏，用AI游戏机制大模型驱动武器合成玩法", source: "游戏葡萄",
+    links: [
+      { title: "Meshy AI创始人访谈：3年生成1亿3D模型，首款AI游戏即将Steam上线", url: "https://m.36kr.com/p/3754726863012361", summary: "年收入2.8亿的3D AI公司推出AI原生游戏" }
+    ]},
+  { id: "overdare-agent", image: "", name: "Overdare Studio Agent", game: "Overdare/Krafton", ai_core: 6, buzz: 5, users: "small", category: "addon", status: "released", launch: "2026-04", desc: "Krafton旗下AI-UGC平台，自然语言控制UE5编辑器零编程做游戏", source: "GameLook",
+    links: [
+      { title: "Krafton子公司发布Studio Agent：自然语言控制UE5编辑器", url: "https://news.qq.com/rain/a/20260409A0001O00", summary: "AI Agent直接控制UE5游戏编辑器，实现零编程游戏开发" }
+    ]},
+  { id: "matrix-game3", image: "", name: "Matrix-Game 3.0", game: "昆仑万维", ai_core: 8, buzz: 5, users: "small", category: "native", status: "demo", launch: "2026-04", desc: "昆仑万维开源实时交互式世界模型，可生成可玩的游戏世界", source: "开源社区",
+    links: [
+      { title: "昆仑万维Matrix-Game 3.0：开源实时交互式世界模型", url: "https://github.com/AMapstar/Matrix-Game-3", summary: "开源可交互的游戏世界生成模型" }
+    ]},
+  { id: "krafton-raon", image: "", name: "Krafton Raon", game: "Krafton", ai_core: 7, buzz: 6, users: "small", category: "addon", status: "released", launch: "2026-04", desc: "PUBG开发商开源AI语音模型族，含实时全双工语音对话能力", source: "GameLook",
+    links: [
+      { title: "Krafton发布开源AI大模型Raon：4款模型上线HuggingFace", url: "http://www.gamelook.com.cn/2026/04/590735/", summary: "90亿参数语音模型+韩国首款实时全双工语音对话模型" }
+    ]},
+  { id: "nsh-zaomeng", image: "", name: "逆水寒造梦模式", game: "逆水寒", ai_core: 8, buzz: 7, users: "large", category: "addon", status: "released", launch: "2026-04", desc: "国内首个AI驱动无限流剧情玩法，玩家输入一句话AI实时生成完整游戏世界", source: "搜狐",
+    links: [
+      { title: "《逆水寒》造梦模式正式上线：打破固定剧本逻辑", url: "https://game.sohu.com/a/1004838691_502356", summary: "国内MMO首次将生成式AI嵌入核心剧情玩法" }
+    ]},
+  { id: "aippy", image: "", name: "Aippy", game: "赤子城科技", ai_core: 7, buzz: 8, users: "medium", category: "native", status: "released", launch: "2026-03", desc: "AI游戏版TikTok，用户输入一句话即可实时生成可玩小游戏，欧美00后爆红", source: "新智元",
+    links: [
+      { title: "Aippy爆红：赤子城孵化的AI游戏版TikTok全渠道下载破百万", url: "https://www.pconline.com.cn/focus/2124/21245072.html", summary: "谷歌商店4.7评分，TikTok式Feed流+AI游戏生成+Remix二创" },
+      { title: "Aippy产品深度拆解：从技术架构到商业模式", url: "https://xueqiu.com/7306623160/382938446", summary: "基于Claude的实时HTML5游戏生成+社区网络效应" }
+    ]},
+  { id: "sherlock-tracker", image: "", name: "神探夏洛克：暗夜追踪者", game: "Gamercury AI", ai_core: 9, buzz: 7, users: "small", category: "native", status: "released", launch: "2026-04", desc: "全球首款AI原生3D推理游戏，AI大模型驱动角色斗智斗勇，Steam推理节全球第一", source: "游戏葡萄",
+    links: [
+      { title: "被全球大厂追着送钱的AI原生游戏标杆", url: "https://news.qq.com/rain/a/20260331A062HM00", summary: "AI驱动推理博弈，从Demo走向商业化全平台发行的里程碑" }
+    ]},
+  { id: "youyoutang", image: "", name: "友友堂", game: "上海真好玩", ai_core: 7, buzz: 6, users: "small", category: "native", status: "demo", launch: "2026-03", desc: "AI+游戏+潮玩跨界融合，AI聊天陪伴+治愈养成+模拟经营，被资本定位为AI陪伴赛道标杆", source: "凤凰科技",
+    links: [
+      { title: "《友友堂》领润峰会爆火：AI+游戏+潮玩跨界融合", url: "https://ishare.ifeng.com/c/s/8rpWfjx3hMv", summary: "万人测试数据亮眼，AI陪伴从纯聊天走向游戏化产品化" }
+    ]},
+  { id: "colony", image: "", name: "Colony", game: "Google/Gemini", ai_core: 8, buzz: 5, users: "small", category: "native", status: "demo", launch: "2026-03", desc: "Google Gemini驱动的AI裁判创意解谜手游，AI判断玩家创意方案可行性", source: "CNET",
+    links: [
+      { title: "GDC 2026: Google力推Gemini游戏Colony", url: "https://www.cnet.com/tech/gaming/generative-ai-gaming-pushback/", summary: "允许AI判断创意解谜方案、2D图转3D模型的AI原生玩法" }
+    ]},
   { id: "xiamashen", image: "images/xiamashen.png", name: "小马神", game: "和平精英", ai_core: 3, buzz: 3, users: "huge", category: "addon", status: "released", launch: "2024-06", desc: "AI驱动的局内陪伴宠物，具备基础跟随和互动行为", source: "官方公告",
     links: [
       { title: "GDC上的中国案例：《和平精英》的AI进化论", url: "https://news.qq.com/rain/a/20260320A07OEY00", summary: "包含小马神AI语音侦查等AI功能全面解读" }
