@@ -387,6 +387,7 @@ a:hover { text-decoration: underline; }
 }
 .news-source::before { content: '📰 '; }
 .news-date::before { content: '🕐 '; }
+.news-lang { padding: 1px 6px; border-radius: 3px; background: rgba(66,133,244,0.15); font-size: 11px; }
 .md-content p { margin: 8px 0; line-height: 1.7; font-size: 14px; }
 .md-content strong { color: var(--text-primary); }
 .md-content ul, .md-content ol { padding-left: 20px; margin: 8px 0; }
@@ -1074,16 +1075,22 @@ function selectReport(date) {
     var sourceItem = items.find(function(li) { return li.textContent.includes('来源'); });
     if (!sourceItem) return;
 
-    // Extract link URL, source name, and optional publish date
+    // Extract link URL, source name, and optional publish date + language
     var sourceLink = sourceItem.querySelector('a');
     var url = sourceLink ? sourceLink.getAttribute('href') : '';
     var sourceName = sourceLink ? sourceLink.textContent.trim() : '';
-    // Check for date after "|" in the source line, e.g. "| 2026-04-10" or "| 4月10日"
+    // Parse pipe-separated fields: "| 2026-04-10 | 🇬🇧英文" or "| 2026-04-10"
     var rawText = sourceItem.textContent || '';
     var datePart = '';
+    var langPart = '';
     var pipeIdx = rawText.indexOf('|');
     if (pipeIdx > -1) {
-      datePart = rawText.substring(pipeIdx + 1).trim();
+      var afterPipe = rawText.substring(pipeIdx + 1);
+      var pipes = afterPipe.split('|');
+      datePart = (pipes[0] || '').trim();
+      if (pipes.length > 1) {
+        langPart = (pipes[1] || '').trim();
+      }
     }
 
     // Wrap h3 text in link
@@ -1100,6 +1107,9 @@ function selectReport(date) {
     if (datePart) {
       metaHtml += '<span class="news-date">' + datePart + '</span>';
     }
+    if (langPart) {
+      metaHtml += '<span class="news-lang">' + langPart + '</span>';
+    }
     metaHtml += '</div>';
     h3.insertAdjacentHTML('afterend', metaHtml);
 
@@ -1114,6 +1124,14 @@ function selectReport(date) {
     var timeStr = report.time || '09:00';
     bq.innerHTML += '<div style="text-align:right;color:#78909C;font-size:12px;margin-top:4px">生成于 ' + timeStr + '</div>';
   }
+
+  // Post-process: ensure all links open in new tab (consistent behavior)
+  contentEl.querySelectorAll('a').forEach(function(a) {
+    if (a.getAttribute('href') && a.getAttribute('href').startsWith('http')) {
+      a.setAttribute('target', '_blank');
+      a.setAttribute('rel', 'noopener');
+    }
+  });
 
   contentEl.parentElement.scrollTop = 0;
   document.querySelectorAll('.report-date-item').forEach(function(item) {
