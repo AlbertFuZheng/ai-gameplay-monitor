@@ -315,8 +315,8 @@ a:hover { text-decoration: underline; }
 .comment-submit:hover { background: #3367D6; }
 
 /* ========== Daily Report View ========== */
-#view-report { height: calc(100vh - var(--nav-height)); }
-.report-view { flex-direction: row; }
+#view-report { height: calc(100vh - var(--nav-height)); flex-direction: row; }
+#view-report .report-content { overflow-y: auto; }
 
 .report-sidebar {
   width: 220px; background: var(--bg-secondary);
@@ -1056,7 +1056,8 @@ function selectReport(date) {
     contentEl.innerHTML = '<div class="report-empty"><div class="report-empty-icon">📰</div><div class="report-empty-text">未找到该日报</div></div>';
     return;
   }
-  contentEl.innerHTML = '<div class="report-content-inner md-content">' + marked.parse(report.content) + '</div>';
+  contentEl.innerHTML = marked.parse(report.content);
+  contentEl.parentElement.scrollTop = 0;
   document.querySelectorAll('.report-date-item').forEach(item => {
     item.classList.toggle('active', item.dataset.date === date);
   });
