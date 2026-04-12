@@ -381,6 +381,12 @@ a:hover { text-decoration: underline; }
 }
 .md-content h3 a { color: inherit; text-decoration: none; }
 .md-content h3 a:hover { text-decoration: underline; }
+.news-meta {
+  display: flex; align-items: center; gap: 12px;
+  font-size: 12px; color: var(--text-muted); margin: 2px 0 8px; padding-left: 2px;
+}
+.news-source::before { content: '📰 '; }
+.news-date::before { content: '🕐 '; }
 .md-content p { margin: 8px 0; line-height: 1.7; font-size: 14px; }
 .md-content strong { color: var(--text-primary); }
 .md-content ul, .md-content ol { padding-left: 20px; margin: 8px 0; }
@@ -1051,41 +1057,62 @@ function initReports() {
 }
 
 function selectReport(date) {
-  const reports = window.DAILY_REPORTS || [];
-  const report = reports.find(r => r.date === date);
-  const contentEl = document.getElementById('reportContent');
+  var reports = window.DAILY_REPORTS || [];
+  var report = reports.find(function(r) { return r.date === date; });
+  var contentEl = document.getElementById('reportContent');
   if (!report) {
     contentEl.innerHTML = '<div class="report-empty"><div class="report-empty-icon">📰</div><div class="report-empty-text">未找到该日报</div></div>';
     return;
   }
   contentEl.innerHTML = marked.parse(report.content);
 
-  // Post-process: move source links onto h3 titles
+  // Post-process: extract source info from each news item and render as meta bar under h3
   contentEl.querySelectorAll('h3').forEach(function(h3) {
-    // Find the next sibling <ul> that contains a "来源" link
     var nextEl = h3.nextElementSibling;
     if (!nextEl || nextEl.tagName !== 'UL') return;
-    var sourceItem = nextEl.querySelector('li');
+    var items = Array.from(nextEl.querySelectorAll('li'));
+    var sourceItem = items.find(function(li) { return li.textContent.includes('来源'); });
     if (!sourceItem) return;
+
+    // Extract link URL, source name, and optional publish date
     var sourceLink = sourceItem.querySelector('a');
-    if (!sourceLink || !sourceItem.textContent.includes('来源')) return;
-    // Wrap h3 text content in link
-    var url = sourceLink.getAttribute('href');
+    var url = sourceLink ? sourceLink.getAttribute('href') : '';
+    var sourceName = sourceLink ? sourceLink.textContent.trim() : '';
+    // Check for date after "|" in the source line, e.g. "| 2026-04-10" or "| 4月10日"
+    var rawText = sourceItem.textContent || '';
+    var datePart = '';
+    var pipeIdx = rawText.indexOf('|');
+    if (pipeIdx > -1) {
+      datePart = rawText.substring(pipeIdx + 1).trim();
+    }
+
+    // Wrap h3 text in link
     var h3Html = h3.innerHTML;
-    h3.innerHTML = '<a href="' + url + '" target="_blank" rel="noopener" style="color:inherit;text-decoration:none">' + h3Html + '</a>';
-    // Remove the source <li> from the list
+    if (url) {
+      h3.innerHTML = '<a href="' + url + '" target="_blank" rel="noopener">' + h3Html + '</a>';
+    }
+
+    // Build meta bar
+    var metaHtml = '<div class="news-meta">';
+    if (sourceName) {
+      metaHtml += '<span class="news-source">' + sourceName + '</span>';
+    }
+    if (datePart) {
+      metaHtml += '<span class="news-date">' + datePart + '</span>';
+    }
+    metaHtml += '</div>';
+    h3.insertAdjacentHTML('afterend', metaHtml);
+
+    // Remove the source <li>
     sourceItem.remove();
-    // If the ul is now empty, remove it too
     if (nextEl.children.length === 0) nextEl.remove();
   });
 
   // Post-process: append generation time to blockquote
   var bq = contentEl.querySelector('blockquote');
-  if (bq && report.time) {
-    bq.innerHTML += '<span style="float:right;color:#78909C;font-size:12px">生成于 ' + report.time + '</span>';
-  } else if (bq) {
-    // Default time for automation runs at 09:00
-    bq.innerHTML += '<span style="float:right;color:#78909C;font-size:12px">生成于 09:00</span>';
+  if (bq) {
+    var timeStr = report.time || '09:00';
+    bq.innerHTML += '<span style="float:right;color:#78909C;font-size:12px">生成于 ' + timeStr + '</span>';
   }
 
   contentEl.parentElement.scrollTop = 0;
