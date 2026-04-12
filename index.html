@@ -379,6 +379,8 @@ a:hover { text-decoration: underline; }
   font-size: 15px; color: var(--blue); font-weight: 600;
   margin: 16px 0 8px;
 }
+.md-content h3 a { color: inherit; text-decoration: none; }
+.md-content h3 a:hover { text-decoration: underline; }
 .md-content p { margin: 8px 0; line-height: 1.7; font-size: 14px; }
 .md-content strong { color: var(--text-primary); }
 .md-content ul, .md-content ol { padding-left: 20px; margin: 8px 0; }
@@ -1057,8 +1059,37 @@ function selectReport(date) {
     return;
   }
   contentEl.innerHTML = marked.parse(report.content);
+
+  // Post-process: move source links onto h3 titles
+  contentEl.querySelectorAll('h3').forEach(function(h3) {
+    // Find the next sibling <ul> that contains a "来源" link
+    var nextEl = h3.nextElementSibling;
+    if (!nextEl || nextEl.tagName !== 'UL') return;
+    var sourceItem = nextEl.querySelector('li');
+    if (!sourceItem) return;
+    var sourceLink = sourceItem.querySelector('a');
+    if (!sourceLink || !sourceItem.textContent.includes('来源')) return;
+    // Wrap h3 text content in link
+    var url = sourceLink.getAttribute('href');
+    var h3Html = h3.innerHTML;
+    h3.innerHTML = '<a href="' + url + '" target="_blank" rel="noopener" style="color:inherit;text-decoration:none">' + h3Html + '</a>';
+    // Remove the source <li> from the list
+    sourceItem.remove();
+    // If the ul is now empty, remove it too
+    if (nextEl.children.length === 0) nextEl.remove();
+  });
+
+  // Post-process: append generation time to blockquote
+  var bq = contentEl.querySelector('blockquote');
+  if (bq && report.time) {
+    bq.innerHTML += '<span style="float:right;color:#78909C;font-size:12px">生成于 ' + report.time + '</span>';
+  } else if (bq) {
+    // Default time for automation runs at 09:00
+    bq.innerHTML += '<span style="float:right;color:#78909C;font-size:12px">生成于 09:00</span>';
+  }
+
   contentEl.parentElement.scrollTop = 0;
-  document.querySelectorAll('.report-date-item').forEach(item => {
+  document.querySelectorAll('.report-date-item').forEach(function(item) {
     item.classList.toggle('active', item.dataset.date === date);
   });
   document.getElementById('reportMobileSelect').value = date;
