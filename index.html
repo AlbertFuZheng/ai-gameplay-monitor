@@ -405,6 +405,27 @@ a:hover { text-decoration: underline; }
   font-size: 13px; color: var(--red);
 }
 
+/* ========== Insight Toggle (策划启发折叠) ========== */
+.insight-toggle {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 12px; color: var(--text-muted); cursor: pointer;
+  padding: 3px 10px; margin: 4px 0 2px;
+  background: var(--bg-secondary); border: 1px solid var(--bg-tertiary);
+  border-radius: 6px; transition: all 0.2s; user-select: none;
+}
+.insight-toggle:hover { color: var(--purple); border-color: var(--purple); background: rgba(171,71,188,0.08); }
+.insight-toggle .arrow { display: inline-block; transition: transform 0.2s; font-size: 10px; }
+.insight-toggle.open .arrow { transform: rotate(90deg); }
+.insight-box {
+  display: none; margin: 4px 0 8px; padding: 10px 14px;
+  background: linear-gradient(135deg, rgba(171,71,188,0.06), rgba(66,133,244,0.06));
+  border-left: 3px solid var(--purple); border-radius: 0 8px 8px 0;
+  font-size: 13px; line-height: 1.7; color: var(--text-secondary);
+  animation: insightFadeIn 0.25s ease;
+}
+.insight-box.show { display: block; }
+@keyframes insightFadeIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+
 /* ========== Responsive ========== */
 @media (max-width: 767px) {
   .nav-logo { font-size: 15px; }
@@ -1057,6 +1078,14 @@ function initReports() {
   selectReport(reports[0].date);
 }
 
+function toggleInsight(btn, id) {
+  var box = document.getElementById(id);
+  if (!box) return;
+  var isOpen = box.classList.contains('show');
+  box.classList.toggle('show');
+  btn.classList.toggle('open');
+}
+
 function selectReport(date) {
   var reports = window.DAILY_REPORTS || [];
   var report = reports.find(function(r) { return r.date === date; });
@@ -1116,6 +1145,37 @@ function selectReport(date) {
     // Remove the source <li>
     sourceItem.remove();
     if (nextEl.children.length === 0) nextEl.remove();
+  });
+
+  // Post-process: convert "策划启发" li into collapsible toggle
+  contentEl.querySelectorAll('h3').forEach(function(h3) {
+    // Find the <ul> that follows (may be after meta bar now)
+    var sibling = h3.nextElementSibling;
+    var ul = null;
+    while (sibling) {
+      if (sibling.tagName === 'UL') { ul = sibling; break; }
+      if (sibling.tagName === 'H3' || sibling.tagName === 'H2' || sibling.tagName === 'HR') break;
+      sibling = sibling.nextElementSibling;
+    }
+    if (!ul) return;
+    var items = Array.from(ul.querySelectorAll('li'));
+    var insightItem = items.find(function(li) { return li.textContent.indexOf('策划启发') > -1; });
+    if (!insightItem) return;
+
+    // Extract insight text (remove the bold label prefix)
+    var insightHtml = insightItem.innerHTML;
+    insightHtml = insightHtml.replace(/^.*?策划启发.*?[：:]/, '').trim();
+
+    // Create toggle button + collapsible box
+    var uid = 'insight-' + Math.random().toString(36).substr(2, 8);
+    var toggleHtml = '<div class="insight-toggle" onclick="toggleInsight(this,\'' + uid + '\')">'
+      + '<span class="arrow">▶</span> 💡 策划启发</div>'
+      + '<div class="insight-box" id="' + uid + '">' + insightHtml + '</div>';
+    ul.insertAdjacentHTML('afterend', toggleHtml);
+
+    // Remove the insight <li>
+    insightItem.remove();
+    if (ul.children.length === 0) ul.remove();
   });
 
   // Post-process: append generation time to blockquote
