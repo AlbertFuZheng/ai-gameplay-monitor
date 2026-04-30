@@ -1375,5 +1375,50 @@ window.DAILY_REPORTS = [
 ## 🏷️ 产品库更新建议
 - **星布谷地**：米哈游旗下生活模拟新作，4月21日开启二测大面积铺开AI NPC系统。NPC具备跨会话长期记忆、多智能体协调、视觉识别和情感共情能力，代表了大厂AI+社交玩法的标杆案例。已收录至产品全景图。
 
+*本日报由 WorkBuddy Automation 自动生成*` },
+{ date: "2026-04-30", time: "09:00", content: `# AI 游戏创新日报 - 2026-04-30
+
+> 自动生成 | 数据来源：全网中英文搜索 + 新闻 + 微信公众号 | 聚焦游戏界生成式AI创新动态
+
+## 🔥 Top 5 重点发现
+
+### 1. 米哈游帕姆AI再进化：「帕姆问问」AI答题玩法上线，路线图剑指AI狼人杀和角色陪玩
+- **来源**：[游戏那点事/腾讯新闻](https://new.qq.com/rain/a/20260429A08Z8V00) | 2026-04-29 | 🇨🇳中文
+- **概要**：4月27日星穹铁道上线了基于AI驱动的「帕姆问问」答题玩法，这是自4.2版本「帕姆帮帮」千万级并发AI工具实装后的又一新尝试。社区反响火爆，二创视频刷屏B站和抖音。更重磅的是，在上海交大的AI技术分享会上，崩铁项目组公布了未来路线图：AI驱动的「崩铁狼人杀」（类Among Us+AI角色自主行为）和「角色陪玩」系统均在计划中。米哈游将帕姆AI定位为"拥有自我意识的鲜活角色"而非纯工具。
+- **策划启发**：[方向A] 米哈游的路径值得重点关注——先做攻略AI工具降低门槛，再做AI答题互动玩法，最终向AI角色陪玩和AI狼人杀等核心玩法演进。这种"工具→互动→玩法"的渐进策略，对和平精英的AI伴侣体系迭代（从吉莉到花傲天到下一代）有直接参考价值。
+
+### 2. 谷歌高管爆料：近九成游戏开发商已在用AI，卡普空是重度用户但多数企业闭口不谈
+- **来源**：[新浪财经/IT之家](https://finance.sina.com.cn/tech/digi/2026-04-23/doc-inhvntew5013409.shtml) | 2026-04-23 | 🇨🇳中文
+- **概要**：谷歌云全球游戏总监Jack Buser在采访中称，科隆游戏展调研显示约90%游戏开发者已在使用AI工具，远高于GDC行业报告的52%——差距源于企业不愿公开。卡普空被点名为谷歌AI工具重度合作者，用AI生成次要美术资源（场景素材快速生成筛选），将核心人力集中到主角设计、BOSS等创意核心工作。育碧已在所有招聘岗位要求具备生成式AI经验。
+- **策划启发**：[方向B] 行业已经"全员AI"只是不说——这意味着不用AI的团队正在被甩开。卡普空的用法很典型：AI做大量重复填充（开放世界场景素材），人做核心创意。策划可以思考：和平精英地图场景资产的哪些部分可以用类似思路降本提效？
+
+### 3. LinearGame Yoroll平台GDC惊艳亮相：世界模型驱动的"无引擎游戏"新范式
+- **来源**：[VentureBeat](http://venturebeat.com/business/lineargame-showcases-yoroll-platform-for-ai-driven-interactive-video-games-at-gdc-and-gtc) | 2026-04-01 | 🇬🇧英文
+- **概要**：新加坡+旧金山初创团队LinearGame在GDC和NVIDIA GTC双会场展示了Yoroll平台，首次将AI生成视频变为结构化可玩游戏体验。平台采用三层架构：表现层使用世界模型（含Google Genie 3和自研Roll-01）实时生成画面并处理物理反馈；判断层用视觉语言模型充当实时裁判监控游戏事件；逻辑层管理游戏状态和进程。已展示StarJunkers（太空探索，AI实时生成可探索星球）、DeadReckoning（僵尸生存）、华君传（甄嬛传性转版互动影游，抖音百万播放）等多个完整可玩Demo。这是"无引擎游戏"概念的首次大规模可玩验证。
+- **策划启发**：[方向C] Yoroll代表了AI游戏的一个极端新范式——完全不用传统引擎，纯靠世界模型生成画面+AI裁判判定交互。虽然当前还是互动视频级别，但如果这条路线成熟，未来"一个策划+Yoroll=一款完整游戏"将不是幻想。建议关注其开放注册时间，亲手体验创作流程。
+
+### 4. 微软Gaming Copilot确认年内登陆Xbox主机：AI游戏助手从PC端走向全平台
+- **来源**：[KitGuru](https://www.kitguru.net/gaming/joao-silva/microsoft-confirms-gaming-copilot-is-expanding-to-xbox-series-xs/) | 2026-03-16 | 🇬🇧英文
+- **概要**：微软在GDC 2026上正式确认，已在PC/移动端/ROG Xbox Ally掌机上进行Beta测试近一年的Gaming Copilot AI助手将于2026年内登陆Xbox Series X|S主机。Gaming Copilot是基于大语言模型的游戏内AI助手，可实时提供上下文相关的游戏帮助、攻略指导和问题排查，定位为"实时游戏伙伴"。Xbox产品经理Sonali Yadav表示将"把它带到更多玩家正在使用的服务上"。此举意味着主机端亿级玩家将首次获得平台级AI游戏助手体验。
+- **策划启发**：[方向A] 微软将AI助手做到主机平台级别，这是行业风向标——AI辅助将成为游戏平台的标配功能。和平精英已有吉莉AI助手，未来可以参考Gaming Copilot的"跨游戏通用"思路，考虑是否将AI能力从单一功能升级为平台级基础设施。
+
+### 5. 索尼SIE收购英国AI视觉初创Cinemersive Labs：2D照片变3D游戏画面
+- **来源**：[Game Developer](https://www.gamedeveloper.com/business/sony-to-acquire-machine-learning-company-cinemersive-labs) | 2026-04-02 | 🇬🇧英文
+- **概要**：索尼互动娱乐4月2日宣布收购英国机器学习初创Cinemersive Labs。该公司开发了基于AI的技术，可将普通2D照片和视频转换为完整的3D体积图像（volumetric 3D），此前曾发布VR应用Parallax展示这一能力。收购后团队将加入SIE的视觉计算组（Visual Computing Group），这是一个专注于游戏渲染、视频编码和生成式AI模型的研究工程团队。索尼表示此举旨在"应用机器学习增强游戏画面、改进渲染技术并提升视觉保真度"，是PlayStation推动下一代游戏视觉体验的重要布局。
+- **策划启发**：[方向B] 索尼这笔收购指向一个未来方向：AI可以将现实世界（照片/视频）直接转化为游戏3D资产。如果这类技术成熟，策划做关卡设计时可以"拍照→导入→生成3D场景"，大幅缩短环境美术制作周期。值得跟踪索尼后续是否将此技术开放给第三方开发者。
+
+---
+
+## 📌 其他值得留意的动态
+- [百度云智思享会·AI游戏进化论闭门沙龙](https://news.qq.com/rain/a/20260428A085OA00) — 三七互娱/Seele AI/AutoGame操盘手分享实战：行业从AI辅助正式跨入AI原生阶段
+- [全球游戏AI市场2025-2030将增至341亿美元，CAGR 40.7%](https://www.gii.tw/report/infi1975615-global-artificial-intelligence-ai-games-market.html) — TechNavio最新报告，验证AI+游戏赛道爆发式增长
+- [咪咕互娱亮相数字中国峰会：AI+云游戏让3A大作零门槛体验](https://ol.gamersky.com/news/202604/2132933.shtml) — AI智能识别游戏进度自动弹出攻略提示，新手友好
+- [《人工智能的选择 Heart of the Machine》Steam 92%好评](https://store.steampowered.com/app/2141320/) — 玩家扮演首款感知AI的策略RPG，2026年3月发行，口碑极佳
+
+---
+
+## 🏷️ 产品库更新建议
+- **Yoroll (LinearGame)**：新加坡+旧金山团队的"无引擎"AI游戏平台，用世界模型实时生成可交互游戏画面。三层架构（表现层+判断层+逻辑层），已有StarJunkers/华君传等完整可玩Demo。代表了AI-native游戏的全新范式。建议收录。
+
 *本日报由 WorkBuddy Automation 自动生成*` }
 ];
