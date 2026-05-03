@@ -598,6 +598,15 @@ a:hover { text-decoration: underline; }
 // ai_core: AI核心程度(0-10), buzz: 讨论度(0-10), users: 用户量(small/medium/large/huge)
 // influence_type: 颜色(user/buzz/both), status: released/demo, launch: 上线时间
 const PRODUCTS = [
+  { id: "mansion-ai", image: "", name: "MANSION", game: "独立游戏", ai_core: 9, buzz: 5, users: "small", category: "AI竞技", status: "即将发售", launch: "2026-05", desc: "全球首款对抗真实AI(Anthropic Claude驱动)的FPS，敌人实时展示推理过程，会思考、适应和包围", source: "Steam",
+    links: [
+      { title: "Steam商店页", url: "https://store.steampowered.com/app/4617750/MANSION/", summary: "2026年5月31日发售，全球首款对抗真实AI的FPS" }
+    ]},
+  { id: "instantale", image: "", name: "Instantale", game: "独立游戏", ai_core: 9, buzz: 6, users: "small", category: "AI叙事", status: "抢先体验", launch: "2026-04", desc: "全LLM驱动的Roguelike RPG，世界/地牢/NPC/物品/故事全部由AI动态生成，无预设脚本", source: "Epic Games Store",
+    links: [
+      { title: "Epic Games Store页面", url: "https://store.epicgames.com/zh-CN/p/instantale-2cfd4c", summary: "因AI内容被Steam拒绝上架，转投Epic发售" },
+      { title: "巴哈姆特报道", url: "https://gnn.gamer.com.tw/detail.php?sn=303744", summary: "LLM驱动RPG被Steam拒绝上架引发行业讨论" }
+    ]},
   { id: "yoroll", image: "", name: "Yoroll", game: "LinearGame", ai_core: 9, buzz: 7, users: "small", category: "AI生成", status: "Demo", launch: "2026-03", desc: "无引擎AI游戏平台，世界模型实时生成可交互游戏画面，三层架构(表现+判断+逻辑)驱动完整可玩体验", source: "VentureBeat/GDC",
     links: [
       { title: "LinearGame Showcases Yoroll Platform at GDC and GTC", url: "http://venturebeat.com/business/lineargame-showcases-yoroll-platform-for-ai-driven-interactive-video-games-at-gdc-and-gtc", summary: "GDC首次展示世界模型驱动的结构化可玩AI游戏体验" },
