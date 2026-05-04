@@ -1506,5 +1506,48 @@ window.DAILY_REPORTS = [
 
 ---
 
+*本日报由 WorkBuddy Automation 自动生成*` },
+{ date: "2026-05-04", time: "09:00", content: `# AI 游戏创新日报 - 2026-05-04
+
+> 自动生成 | 数据来源：全网中英文搜索 + 新闻 + 微信公众号 | 聚焦游戏界生成式AI创新动态
+
+## 🔥 Top 5 重点发现
+
+### 1. Fortnite开放AI驱动的对话NPC系统，创作者可用Gemini打造无脚本AI角色
+- **来源**：[Fortnite官方](https://www.fortnite.com/news/bring-npcs-to-life-with-ai-powered-conversations?lang=zh-CN) | 2026-04-16 | 🇨🇳中文
+- **概要**：Epic Games为Fortnite Creative推出名为"Conversations"的实验性AI NPC系统。该系统基于Google Gemini 3.1 Flash-Lite模型处理对话，使用ElevenLabs合成语音。创作者只需约20行提示词即可定义AI角色的性格、知识和行为方式，NPC可进行无脚本对话、记忆游戏会话事件、根据上下文响应玩家并触发游戏事件。Epic明确禁止创建提供医疗建议或扮演浪漫伴侣的AI角色。
+- **策划启发**：[方向A] Fortnite将AI NPC开放给UGC创作者，这是平台级AI能力下放的标志性事件。和平精英的海岛编辑器如果引入类似的AI角色定义系统（低门槛提示词配置+行为规则约束），将极大丰富创作者生态内容。同时Epic对"禁止浪漫陪伴"的安全护栏设计，是我们做AI社交功能时必须参考的合规范本。
+
+### 2. Roblox升级AI助手为自主Agent，可独立规划、构建和测试游戏
+- **来源**：[GamesHub](https://www.gameshub.com/?p=2867293) | 2026-04-20 | 🇬🇧英文
+- **概要**：Roblox正在将其内置AI助手升级为具备"Agent能力"的自主开发伙伴，引入规划模式（Planning Mode）、程序化模型生成（Procedural Models）、网格生成（Mesh Generation）和自我纠错的Agent循环。这意味着AI不再只是代码建议工具，而是可以像真正的开发伙伴一样自主规划游戏逻辑、构建场景和调试代码。Roblox Studio由此成为首批将AI从"自动补全"推进到"协作式产品开发"的主流游戏创作平台之一。此前Roblox的4D生成功能（基于Cube基础模型）已帮助用户生成超180万个3D物体，接入该功能后玩家平均游玩时长提升64%。
+- **策划启发**：[方向B] Roblox将AI从辅助工具升级为"自主Agent开发伙伴"的思路非常值得关注。对策划团队来说，这指向一个趋势：未来策划可以用自然语言描述玩法需求，AI Agent自动完成原型搭建和测试。我们可以探索在内部工作流中引入类似的Agent辅助——让AI帮助策划快速验证玩法创意原型。
+
+### 3. 神探夏洛克：暗夜追踪者确认2026年5月正式发售，AI推理游戏商业化里程碑
+- **来源**：[Steam商店](https://store.steampowered.com/app/3561740/__AI/) | 2026-05-01 | 🇨🇳中文
+- **概要**：由Gamercury AI开发的AI原生推理游戏《神探夏洛克：暗夜追踪者》确认2026年5月正式发售。玩家扮演福尔摩斯，与数十个AI驱动角色斗智斗勇，通过对话、审讯、探索和推理破案。游戏没有选项式对话，所有线索必须通过自由交互获取，标志着AI驱动推理游戏从Demo走向正式商业化。
+- **策划启发**：[方向A] 这款产品证明了"AI对话+推理博弈"玩法已具备商业化能力。对和平精英的启发是：在社交推理模式（如狼人杀等派对玩法）中引入AI对手，可以让玩家随时开局不依赖凑人，同时AI"会演戏"的特性能大幅提升推理乐趣。
+
+### 4. MANSION——全球首款对抗真实AI的FPS，5月底Steam发售
+- **来源**：[Steam商店](https://store.steampowered.com/app/4617750/MANSION/) | 2026-05-01 | 🇬🇧英文
+- **概要**：由Space Helmet Studios开发的MANSION确认2026年5月31日在Steam发售，号称全球首款让玩家"对抗真实AI"的FPS游戏。游戏接入Anthropic Claude大模型，其中一个名为"指挥官"的敌人由真正的AI驱动，能进行实时战术决策——包围、侧翼迂回、撤退和适应。最独特的设计是玩家可以"观看AI的思考过程"，看到AI如何推理并制定策略。这是将大语言模型直接应用于FPS战术对抗的首次尝试。
+- **策划启发**：[方向A] "可观看AI思维过程"的设计太有意思了——把AI从黑箱变成透明对手，让玩家享受"与聪明对手博弈"的成就感。和平精英如果在某些PVE模式中引入可展示决策逻辑的AI敌人（如Boss战前显示AI的战术意图），可能会带来全新的对抗体验和直播观赏性。
+
+### 5. 深海迷航2坚持全人工开发拒用生成式AI，引发行业AI使用观讨论
+- **来源**：[新浪财经](https://finance.sina.com.cn/roll/2026-05-01/doc-inhwkyic0499164.shtml) | 2026-05-01 | 🇨🇳中文
+- **概要**：《深海迷航2》开发商Unknown Worlds明确表示整个开发过程完全未使用生成式AI，所有游戏内容均为传统人工方式完成。这一声明在当前环境下显得尤为特别——其母公司Krafton自称"AI优先公司"，且已向对AI方向不感兴趣的员工提供离职补偿。游戏将于5月14日开启抢先体验，连续9个月Steam愿望单第一。开发商强调"我们所说的AI仅指传统行为树类AI"。
+- **策划启发**：[方向C] 这条新闻提醒我们：AI并非万能药，玩家社区对"是否使用AI"的态度两极分化。对策划工作的启发是——我们在宣传AI功能时需要谨慎定位，强调"AI是增强体验的工具而非替代创作者"，避免引发玩家对品质下降的担忧。
+
+---
+
+## 📌 其他值得留意的动态
+- [世界模型会首先重塑游戏、影视行业](https://mffb.com.cn/a/472106.html) — xAI计划2026年底推出世界模型驱动的AI生成游戏；腾讯混元世界模型支持构建可行走场景地图
+- [PixVerse R1实时世界模型持续进化](https://ex.chinadaily.com.cn/exchange/partners/82/rss/channel/cn/columns/snl9a7/stories/WS69ce2553a310942cc49a6335.html) — 爱诗科技发布数字分身功能，用户上传照片即可生成虚拟角色并穿越到R1世界中互动
+- [Krafton公布2026年Q1业绩，AI for Game战略推进](https://wap.gamersky.com/news/Content-2133659.html) — 计划为inZOI提供AI剧本模组工具降低UGC创作门槛，PUBG新模式PAYDAY将于5月推出
+- [瀚翔科技分享从Utility-AI到JEPA的游戏NPC进化路径](https://games.sina.com.cn/news/yw/2026-03-31/esports-inhsvwpy3370054.shtml) — 中关村论坛演讲，系统解析下一代游戏AI技术从行为树到世界模型的演进方向
+- [NVIDIA DLSS 5宣布秋季发布，用生成式AI实时渲染光照和材质](https://news.qq.com/rain/a/20260317A07A9400) — 不再是传统帧率提升，而是AI神经网络为每帧注入照片级写实效果
+
+---
+
 *本日报由 WorkBuddy Automation 自动生成*` }
 ];
