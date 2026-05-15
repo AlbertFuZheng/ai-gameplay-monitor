@@ -1962,4 +1962,50 @@ window.DAILY_REPORTS = [
 - 新增产品：历史模拟器：崇祯（青干工作室）— 5月8日Steam上线，AI原生历史策略游戏，AI作为"执行引擎"认真模拟诏书在复杂系统中的传导执行过程。48元买断制。
 
 *本日报由 WorkBuddy Automation 自动生成*` }
+,
+{ date: "2026-05-15", time: "09:00", content: `# AI 游戏创新日报 - 2026-05-15
+
+> 自动生成 | 数据来源：全网中英文搜索 + 新闻 + 微信公众号 | 聚焦游戏界生成式AI创新动态
+
+## 🔥 Top 5 重点发现
+
+### 1. 《猛兽派对》AI视频大赛引爆玩家抗议，Steam遭差评轰炸
+- **来源**：[Dexerto](https://www.dexerto.com/gaming/party-animals-review-bombed-after-announcing-ai-video-contest-with-15k-grand-prize-3364713/) | 2026-05-14 | 🇬🇧英文
+- **概要**：国产派对游戏《猛兽派对》（Party Animals）开发商Recreate Games于5月12日宣布"Golden Paw Awards"AI视频创作大赛，要求参赛作品必须使用生成式AI作为核心创作工具（涵盖AI图像、视频、音乐、配音、3D素材），总奖金7.5万美元（冠军1.5万美元）。消息一出立即引发玩家海啸式反弹——Steam上遭遇大规模差评轰炸，大量玩家卸载游戏，社交媒体充斥"out of touch""AI slop"等批评。开发商5月14日紧急道歉，解释初衷是"降低创作门槛"，并发起投票让玩家三选一：取消比赛/改为非AI赛事/增设手工类别。这一事件成为2026年AI游戏伦理争议的标志性案例。
+- **策划启发**：[方向A] 这是一个极具警示意义的案例。游戏厂商在推广AI功能时必须精准把握玩家情绪边界——"AI辅助开发"与"要求玩家用AI创作"是两码事。和平精英在推AI队友、AI语音等功能时，核心逻辑是"AI服务玩家体验"，而非要求玩家为AI买单。任何AI相关运营活动的公关策略都需要事先做好舆情预判。
+
+### 2. Origin Lab获800万美元融资，将游戏世界变成AI训练数据金矿
+- **来源**：[TechCrunch](https://techcrunch.com/2026/05/13/origin-lab-raises-8m-to-help-video-game-companies-sell-data-to-world-model-builders/) | 2026-05-13 | 🇬🇧英文
+- **概要**：初创公司Origin Lab完成800万美元种子轮融资，由光速创投（Lightspeed Ventures）领投，SV Angel、Eniac等跟投，天使投资人包括Twitch联合创始人Kevin Lin和Cruise创始人Kyle Vogt。Origin Lab定位为连接AI实验室与游戏公司的数据市场——将游戏世界的3D资产、物理模拟、自动化游走视频等转化为世界模型（World Model）所需的训练数据。联合创始人Anne-Margot Rodde指出："现在正在构建的AI系统需要理解物理世界如何运作，而这些数据本质上存在于游戏之中。"已知客户包括Yann LeCun的AMI Labs和李飞飞的World Labs。这代表了游戏行业一种全新的变现路径。
+- **策划启发**：[方向D] 游戏资产作为AI训练数据的价值正被重新定义。和平精英拥有海量高质量3D场景、物理模拟和玩家行为数据，这些在世界模型训练领域具有独特价值。策划团队可以关注这一趋势，思考游戏数据资产化的可能性，以及如何在AI模型训练中为游戏IP创造附加收益。
+
+### 3. Unity AI工具套件正式开放公测，覆盖Unity 6全用户
+- **来源**：[GamesIndustry.biz](https://www.gamesindustry.biz/unity-launches-suite-of-ai-tools-to-help-creators-accelerate-game-development) | 2026-05-07 | 🇬🇧英文
+- **概要**：Unity于5月7日面向所有Unity 6及以上版本开发者推出AI工具套件公测版。核心功能包括：Agentic Assistant（AI助手可理解项目上下文并提供智能建议）、Plan Mode（设计实现步骤的规划模式）、Skills（UI创建/场景搭建等专家指导）、Instant Rollback（即时回滚保障实验安全）、Placeholder Asset Generation（自动生成材质/音效/2D/3D占位素材）。通过AI Gateway和MCP协议可接入外部AI模型。Pro/Enterprise用户自动获得额度，Personal版用户14天免费试用后$10/月。这标志着Unity从引擎工具商向AI开发平台的关键转型。
+- **策划启发**：[方向B] Unity AI正式公测意味着AI辅助游戏开发从概念走向标配。Plan Mode+Skills+Asset Generation的组合对策划工作流影响显著——策划可以用自然语言描述需求，AI辅助搭建原型场景和生成占位资源，大幅缩短从方案到原型的周期。建议团队关注Unity AI在关卡原型验证方面的应用潜力。
+
+### 4. 《质量效应》总监Casey Hudson炮轰AI"创意上毫无灵魂"
+- **来源**：[PC Gamer](https://www.pcgamer.com/software/ai/ai-is-creatively-soulless-says-director-of-mass-effect-and-knights-of-the-old-republic-im-just-really-unimpressed-with-it) | 2026-05-13 | 🇬🇧英文
+- **概要**：《质量效应》三部曲和《星球大战：旧共和国武士》的传奇总监Casey Hudson在接受彭博社采访时直言AI"创意上毫无灵魂"（creatively soulless），表示"很难想象AI在开发流程中能有什么实际帮助"。他正在开发的新作《星球大战：旧共和国的命运》明确排除使用生成式AI工具——这与行业大势形成鲜明对比。BioShock之父Ken Levine此前也表达过类似立场，这股"反AI"声音在3A工作室中持续发酵。结合猛兽派对事件，AI在游戏行业的接受度正面临"创作者-玩家双重抵触"的考验。
+- **策划启发**：[方向A] Hudson的观点代表了一部分资深创意总监对AI的深层顾虑——AI擅长效率优化但难以替代人类创意直觉。这提醒我们在推进AI玩法设计时，AI应该放大策划的创意而非取代它。和平精英的AI队友、AI语音触发等设计的成功，恰恰是因为AI服务于策划预设的体验目标，而不是让AI自由发挥"创作"。
+
+### 5. 《深海迷航2》5月14日上线，开发全程零AI成行业标杆
+- **来源**：[新浪财经](https://finance.sina.com.cn/roll/2026-05-01/doc-inhwkyic0499164.shtml) | 2026-05-14 | 🇨🇳中文
+- **概要**：Unknown Worlds开发的《深海迷航2：异星水域》于5月14日正式开启Steam抢先体验，开发商明确声明全程未使用任何生成式AI技术。值得注意的是，Unknown Worlds的母公司Krafton是自称"AI优先"的韩国游戏巨头，但该团队仍坚持纯人工开发路线。首周预购赠送死神利维坦雕像。这一"零AI"标签反而成为了营销亮点，与当天猛兽派对的AI争议形成戏剧性对照。
+- **策划启发**：[方向A] "零AI开发"正在成为一种差异化营销策略，说明部分玩家群体对AI的抵触已经强到可以影响购买决策。但这并不意味着AI无用——关键在于"对谁用AI"。面向玩家体验的AI功能（如AI NPC、动态叙事）和面向开发效率的AI工具，需要不同的沟通策略。策划在设计AI功能时也要考虑如何向玩家传达价值而非引发反感。
+
+---
+
+## 📌 其他值得留意的动态
+- [Roblox 5月AI更新：Planning Mode+Procedural Models+Playtesting Agent三连发](https://www.bloxbot.ai/guide/whats-new-roblox-ai-2026) — Roblox Studio向全自动化开发平台进化，Assistant升级为可规划-构建-测试的Agentic系统，新增程序化模型实例类型和自动化游玩测试Agent
+- [索尼发布2026财年战略：AI赋能PlayStation全线开发](https://www.sony.com.cn/content/sonyportal/zh-cn/cms/newscenter/corporate/2026/20260508-03.html) — SIE总裁西野秀明公布AI应用规划，覆盖软件工程/QA测试/3D建模/动画四大领域，与万代南梦宫试点生成式AI，核心原则"AI是工具不替代创作者"
+- [腾讯Q1游戏营收642亿，高管称AI时代不能盲目追DAU](https://new.qq.com/rain/a/20260514A04G6200) — 国内游戏环比大涨19%，管理层强调AI时代需在成本结构与创造价值间找平衡，不盲目追求DAU增长
+- [网易逆水寒"新世界"+"无限大"双线推进AI技术](http://www.gamelook.com.cn/2026/05/593103/) — 逆水寒造梦模式持续迭代，丁磊高度看好的《无限大》内含大量AI技术，被视为国产AI游戏最激进的在研项目之一
+
+---
+
+## 🏷️ 产品库更新建议
+- 今日未识别到符合收录标准的新AI游戏产品。Origin Lab为数据交易平台（面向AI实验室而非玩家），Party Animals的AI大赛是运营活动而非产品功能，《深海迷航2》明确不使用AI。
+
+*本日报由 WorkBuddy Automation 自动生成*` }
 ];
