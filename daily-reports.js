@@ -2371,5 +2371,50 @@ window.DAILY_REPORTS = [
 ## 🏷️ 产品库更新建议
 - 今日未识别到符合收录标准的新AI游戏产品。主要新闻为文博会展示（已有产品跨界应用）、育碧Teammates（尚未发售）、超自然行动组持续数据更新（已在库）、行业AI道德审查分析、Roblox Agentic升级（平台工具）。
 
+*本日报由 WorkBuddy Automation 自动生成*` },
+{ date: "2026-05-25", time: "09:00", content: `# AI 游戏创新日报 - 2026-05-25
+
+> 自动生成 | 数据来源：全网中英文搜索 + 腾讯新闻 + 微信公众号 | 聚焦游戏界生成式AI创新动态
+
+## 🔥 Top 5 重点发现
+
+### 1. Latitude Voyage正式上线：AI Dungeon团队五年磨一剑，打造全球首个AI原生RPG平台
+- **来源**：[TechCrunch](https://techcrunch.com/2026/04/21/voyage-is-an-ai-rpg-platform-for-creating-custom-gaming-worlds-with-ai-generated-npc-interactions) | 2026-04-21 | 🇬🇧英文
+- **概要**：AI Dungeon的创始团队Latitude正式发布Voyage平台，号称"全球首个无脚本AI RPG"。该平台基于五年研发的World Engine技术，NPC具备跨会话持久记忆、自主动机和因果追踪能力。玩家用自然语言描述世界即可生成完整可玩RPG，早期测试者已与16万+独特AI角色互动。Google AI Futures Fund、Roblox前CBO Craig Donato、NFX、Midjourney等参投。平台免费体验，未来订阅制$15-50/月。近60%早期用户评价其为"革命性"产品。
+- **策划启发**：[方向A] Voyage的World Engine采用"确定性系统+AI生成"双层架构，用规则引擎约束AI幻觉——这正是和平精英AI队友系统需要解决的核心工程问题：如何在AI生成内容和游戏规则之间建立可靠的边界层。
+
+### 2. 育碧财报确认加码Teammates：首款可玩GenAI游戏体验加速推进，腾讯11亿欧元注资完成
+- **来源**：[3DM Game](https://m.3dmgame.com/news/202605/3944607.html) | 2026-05-21 | 🇨🇳中文
+- **概要**：育碧最新财报显示公司营收稳步上涨，同时确认正加大对首款生成式AI游玩项目Teammates的投入。该项目于2025年11月首次公布，展示了AI驱动的FPS队友NPC和智能引导系统。育碧表示AI技术还在推进智能测试机器人、动态NPC和自适应游戏世界等多个方向。腾讯相关交易完成带来11亿欧元资金注入。
+- **策划启发**：[方向A] 育碧Teammates和和平精英AI队友在本质上是同一个赛道——FPS中的AI队友。关键差异在于育碧强调"丰富体验"，和平精英强调"超听话"。两条路线哪条更符合玩家核心需求，值得持续对标观察。
+
+### 3. 《吾皇万岁》5月29日Steam正式发售：国产AI NPC嵌入古代帝王模拟
+- **来源**：[Steam](https://store.steampowered.com/app/3634340/) | 2026-05-25 | 🇨🇳中文
+- **概要**：由AI GAME STUDIO开发的皇帝模拟游戏《吾皇万岁》确认5月29日Steam正式发售。游戏核心特色是AI对话系统——每位NPC搭配AI互动聊天，对话内容与游戏内实时事件绑定，摆脱固定台词。玩家治理国家、纳妃育嗣、征战四方，AI驱动官员的阴谋与派系博弈。Demo已上线并获关注。
+- **策划启发**：[方向C] 又一款将AI对话嵌入策略玩法的国产游戏。和"崇祯模拟器"的"AI推演政令结果"不同，吾皇万岁更侧重"AI驱动NPC社交关系"。这两种路线对比，为AI+策略游戏的设计空间提供了清晰的分岔参考。
+
+### 4. MANSION登陆Steam：全球首款对战真AI推理的FPS，五大模型同台竞技
+- **来源**：[Steam](https://store.steampowered.com/app/4617750/) | 2026-05 | 🇬🇧英文
+- **概要**：Space Helmet Studios独立开发的MANSION于5月登陆Steam，定位为"世界首款对战真AI的FPS"。游戏中AI Commander由Claude驱动，实时做出战术决策（包围、撤退、适应），玩家可通过终端实时观看AI思考过程。AI Arena模式让Claude、GPT、Gemini、Grok、Llama五款大模型互相对战，击杀数无限累积。采用线框科幻美学+程序化生成关卡，要求联网运行AI推理。
+- **策划启发**：[方向A] MANSION的"AI推理可视化"设计极具启发——让玩家看到AI在想什么，本身就是一种全新的游戏乐趣。如果和平精英AI队友能在某些模式下展示"思考过程"（如战术决策理由），可能创造出独特的信任感和互动深度。
+
+### 5. Google DeepMind正式投资EVE Online开发商：用23年虚拟社会训练通用AI Agent
+- **来源**：[TechTimes](https://www.techtimes.com/articles/317068/20260524/google-deepmind-picks-eve-online-next-ai-frontier-game-that-never-ends.htm) | 2026-05-24 | 🇬🇧英文
+- **概要**：Google DeepMind投资Fenris Creations（原CCP Games）并建立正式研究合作，将EVE Online作为通用AI Agent的训练场。研究聚焦三大AI最难问题：长期规划（跨月战争协调）、对抗性记忆（跨年恩怨追踪）、持续学习（每战后更新战术教义）。DeepMind高级总监Adrian Bolton在EVE Fanfest 2026确认这是AI尚未掌握的能力。训练在离线服务器进行，Agent接收像素流而非内部数据。从2017年开始酝酿的九年合作终于落地。
+- **策划启发**：[方向D] DeepMind选择EVE而非任何其他游戏的原因值得深思——他们需要的是"永不重置的复杂社会环境"。这对游戏策划的启示是：设计一个能让AI持续学习的游戏环境本身就是稀缺资产，和平精英的海量玩家行为数据在AI研究层面有巨大潜在价值。
+
+---
+
+## 📌 其他值得留意的动态
+- [游戏陀螺 × 百度Create 2026深度复盘](https://news.qq.com/rain/a/20260521A0995100) — AI从单点工具进入全链路基础设施，"超级个体"成最高频词，三七互娱/SOON等展示AI全流程造游戏实战
+- [《一期一会》Steam 5月免费上线](https://store.steampowered.com/app/4604180) — AI驱动叙事RPG+番茄工作法，专注25分钟后回来发现AI替你写了新章节，开创"异步AI叙事"新品类
+- [腾讯联合高校ReactiveGWM论文](https://www.techwalker.com/2026/0522/3187894.shtml) — 解耦NPC战术与玩家控制，让AI对手在格斗游戏中具备真正独立战术思维，可零样本迁移
+- [《即时生成传说》(Instantale) 6月2日Epic发售](https://gnn.gamer.com.tw/detail.php?sn=304626) — 全LLM驱动Roguelike RPG，所有NPC/地点/事件由AI即时生成，被Steam拒绝后转投Epic
+
+---
+
+## 🏷️ 产品库更新建议
+- **建议收录：《吾皇万岁》(Long Live the Emperor)** — AI GAME STUDIO开发，5月29日Steam正式发售，AI NPC对话系统嵌入古代帝王模拟核心玩法，已有可体验Demo，属于AI驱动策略模拟品类的新代表。
+
 *本日报由 WorkBuddy Automation 自动生成*` }
 ];
