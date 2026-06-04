@@ -2829,5 +2829,50 @@ window.DAILY_REPORTS = [
 - **YOU vs Zombies**（10six Games）：AI个性化roguelite，8月EA上架，获伦敦游戏节入选，但目前仍为Demo阶段，**建议观察**
 - 本日暂无满足收录标准的新产品入库
 
+*本日报由 WorkBuddy Automation 自动生成*` },
+{ date: "2026-06-04", time: "09:00", content: `# AI 游戏创新日报 - 2026-06-04
+
+> 自动生成 | 数据来源：全网中英文搜索 + 腾讯新闻 + 微信公众号 | 聚焦游戏界生成式AI创新动态
+
+## 🔥 Top 5 重点发现
+
+### 1. GDC 2026行业趋势报告发布：生成式AI三大阵营分化，暴雪称70%任务可AI自动化
+- **来源**：[GameLook](https://new.qq.com/rain/a/20260604A000XE00) | 2026-06-04 | 🇬🇧英文
+- **概要**：GDC官方《2026行业趋势报告》正式发布，系统梳理了当前游戏行业的五大关键趋势。报告指出生成式AI已形成三大阵营分化——全面拥抱者、场景限定使用者和完全拒绝者。暴雪应用科学副总监Zhen Zhai表示游戏开发中约70%的任务可被AI自动化，但Orion Productions CEO Julien Merceron认为"远不到10%"。智能体AI被视为最大机遇方向，可通过自主处理故障、代码编写和玩家运维服务大幅削减3A开发成本。腾讯游戏技术负责人Nathan Chen在报告中指出"AI不是游戏开发的终结，而是一个更有利可图、更可持续、更具创造力的行业的起点"。报告同时关注了联合开发模式的兴起（6%从业者在专业联合开发公司）以及AI知识产权风险（Lewis Rice律师警告"法律仍在演变，没有人真正知道什么是安全的"）
+- **策划启发**：[方向B] GDC报告首次用数据量化了AI在游戏研发中的"三阵营分化"现象——暴雪70%可自动化vs保守派<10%的巨大认知差，恰好对应策划团队内部对AI工具的态度光谱。建议参考这一框架，梳理自身团队在AI工具链上的成熟度定位
+
+### 2. GameLook深度实测光子《造化工坊》：AI互动影游赛道即将变天，零门槛全流程AI生成
+- **来源**：[GameLook/腾讯新闻](https://new.qq.com/rain/a/20260604A000X600) | 2026-06-04 | 🇨🇳中文
+- **概要**：GameLook今日发布万字深度实测报告，全面拆解腾讯光子"造化工坊"的创作能力。核心结论是AI互动影游赛道"即将变天"——创作者零基础、仅通过自然对话就能一键生成万字剧本、角色三视图、分镜关键帧、配音视频的全流程产出。目前平台已有近60款AI互动影游，覆盖悬疑/奇幻/古风/科幻等多题材，画面精度和角色建模"堪比一流互动影游"。非互动影游方面（射击/策略等）生成质量仍有差距，基本为低模/2D水平
+- **策划启发**：[方向A] 造化工坊的实测验证了"AI+互动叙事"赛道的爆发节点已到——十几分钟出万字剧本+影视级画面的效率，对标的是传统互动影游数月的开发周期。但非叙事类玩法（射击/策略）的AI生成质量仍远落后，说明"AI生成互动内容"比"AI生成核心玩法"更早跑通
+
+### 3. KRAFTON旗下MIMESIS参展Steam Next Fest：强化学习AI驱动的心理恐怖Co-op，10万+愿望单
+- **来源**：[KRAFTON官方](https://www.krafton.com/en/news/press/krafton-and-relu-games-to-showcase-mimesis-at-steam-next-fest/) | 2026-06-04 | 🇬🇧英文
+- **概要**：KRAFTON子公司ReLU Games宣布AI驱动合作恐怖游戏MIMESIS将于6月9-16日参展Steam Next Fest，提供免费Demo。这是一款4人合作心理恐怖游戏，核心机制是"神秘降雨让人类变成能复制语音、行为和记忆的分身生物"。AI通过强化学习实现人类般的真实行为，迫使玩家在信任崩塌中做出判断。游戏已完成6月4-7日CBT（参与热度"overwhelming"），Steam愿望单突破10万。KRAFTON以PUBG Ally（AI队友）和MIR5（AI Boss自适应）展示了ACE技术能力后，此次用独立恐怖品类验证"AI行为模仿"的社交推理方向
+- **策划启发**：[方向A] MIMESIS代表了一个被忽视的AI玩法方向——"AI模仿人类"而非"AI辅助人类"。强化学习驱动的AI分身制造信任危机，本质是用AI重构社交推理玩法。这对和平精英的AI队友设计有逆向启发：如果AI能骗过队友，那AI队友的"真实感"就有了新的衡量标准
+
+### 4. 《Tomb Raider: Legacy of Atlantis》Steam页面AI声明引争议：又一3A大作确认使用GenAI
+- **来源**：[17173/Eurogamer](https://news.17173.com/content/06032026/211930439.shtml) | 2026-06-03 | 🇬🇧英文
+- **概要**：PlayStation State of Play发布会后，Crystal Dynamics和Flying Wild Hog合作开发的《Tomb Raider: Legacy of Atlantis》在Steam页面披露了AI使用声明，承认"在早期探索阶段使用了AI辅助工具生成临时开发内容，相关资产已被替换或经人工修正"。这是继ARC Raiders（1600万份销量）、Crimson Desert（美国2026年最畅销之一）、Clair Obscur（历史最多年度大奖+800万份）之后，又一3A大作主动披露使用GenAI。值得注意的是，这三款"争议"游戏的商业表现均未受影响——玩家并未用钱包投票反对AI。Crystal Dynamics回应称"所有最终产品中的内容均为人工打造"
+- **策划启发**：[方向B] 3A大作AI使用声明已从"丑闻"变为"常态操作"——ARC Raiders 1600万销量+Clair Obscur史上最多GOTY的数据彻底证明玩家对AI的态度是"嘴上抵制、钱包不投票"。这意味着策划工作中使用AI辅助的政治风险正在快速下降，关键是把握好"AI辅助开发"vs"AI面向玩家"的分界
+
+### 5. 西北大学等五校发布PEAM框架：让AI游戏智能体拥有"肌肉记忆"
+- **来源**：[新浪财经/arXiv:2605.27762](https://finance.sina.com.cn/stock/t/2026-06-02/doc-inhzzivp1568295.shtml) | 2026-06-02 | 🇨🇳中文
+- **概要**：西北大学、东北大学、华南理工等五所高校联合发布PEAM（参数化具身智能体记忆）框架，解决AI游戏智能体的核心痛点——"翻笔记本太慢"。传统AI智能体依赖检索增强生成(RAG)，每次决策都要搜索外部技能库、注入上下文，技能越多越慢。PEAM的突破在于让AI通过反复经历将技能"写入"神经网络参数，变成类似肌肉记忆的内在能力。在Minecraft环境测试中实现了推理速度22倍提升，且技能库规模不再影响响应速度
+- **策划启发**：[方向A] PEAM框架解决的正是AI NPC/队友的实时性瓶颈——当AI需要处理的技能和记忆越来越多时，RAG架构会导致明显延迟。对和平精英AI队友的长线进化（小田的情感记忆越来越深）有直接技术参考价值：如何让AI"记住"越多却不变慢
+
+---
+
+## 📌 其他值得留意的动态
+- [Instantale正式发售](https://www.gamespress.com/zh-CN/LLM-Driven-RPG-Instantale-Where-Players-Live-Freely-in-an-AI-Generated) — 全LLM驱动Roguelike RPG于6月3日登陆Epic Games Store，$14.99，无预设剧情/NPC/物品全部AI动态生成
+- [游戏AI落地为何这么难？ThinkingAI深度对话](https://new.qq.com/rain/a/20260602A09HAE00) — 游戏陀螺对话AI中间件ThinkingAI：旧方法用不好现在的AI，Agent+Skill架构才是正确路径
+- [EULA：人类vs AI叙事的视觉小说](https://game-news.asia/article/920657) — 日本开发者MoEater将于6月26日发售独特视觉小说，可在游戏内切换"人类创作"和"AI生成"两套平行内容
+- [Roblox CubePart AI开始在游戏中落地](https://news.sina.cn/ai/2026-05-29/detail-inhzqccq0865321.d.html) — 不仅开发者可用，玩家在支持的游戏中也能直接生成可运动功能性物体
+
+---
+
+## 🏷️ 产品库更新建议
+- **已入库：MIMESIS**（KRAFTON/ReLU Games）— 4人合作心理恐怖，强化学习AI模仿人类语音和行为，10万+愿望单，10月EA发售
+
 *本日报由 WorkBuddy Automation 自动生成*` }
 ];
